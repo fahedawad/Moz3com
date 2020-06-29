@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/editing"
+        android:title="اضافة صنف"/>
+
+    <item
+        android:id="@+id/jard"
+        android:title="جرد المبيعات"/>
+
+    <item
+        android:id="@+id/list"
+        android:title="قائمة المحلات "/>
+    <item
+        android:visible="false"
+        android:id="@+id/i"
+        android:title="المخزن"/>
+
+</menu>
