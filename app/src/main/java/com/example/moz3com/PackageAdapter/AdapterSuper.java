@@ -43,6 +43,7 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
     String datet,id,salary;
     Double   total;
     Double sum ,sum2,taxsum04,x,y,taxsum10,taxsum16,z,i,f;
+    ArrayList <String> dates;
     public AdapterSuper(Context context,ArrayList<List<itmeList>> list){
         this.context=context;
         this.list=list;
@@ -56,7 +57,8 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         RecyclerView itemlistrec = holder.itemlistrec;
         simpleDateFormat =new SimpleDateFormat("dd-MM-yyyy",Locale.ENGLISH);
-        datet =simpleDateFormat.format(new Date());;
+        datet =simpleDateFormat.format(new Date());
+        final TextView tax = holder.tax;
         itemlistrec.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
         itemlistrec.setLayoutManager(linearLayoutManager);
@@ -65,6 +67,7 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
         holder.date.setText(list.get(position).get(0).getDate());
         holder.name.setText(list.get(position).get(0).getUsername());
         itemlistrec.setAdapter(addList);
+        dates = new ArrayList<>();
         taxsum04 = 0.0;
         taxsum10 = 0.0;
         taxsum16 = 0.0;
@@ -74,19 +77,27 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
         y = 0.0;
         z = 0.0;
         total = 0.0;
+        System.out.println(position + "          pos");
 
              final int finalI = 0;
-            FirebaseDatabase.getInstance().getReference("order").child(list.get(position).get(0).getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            FirebaseDatabase.getInstance().getReference("order").child(list.get(position).get(0).getUid()).child(list.get(position).get(0).getDate()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
 
-                        for (DataSnapshot ds1 : dataSnapshot.getChildren())//date
-                        {
+                            taxsum04 = 0.0;
+                            taxsum10 = 0.0;
+                            taxsum16 = 0.0;
+                            sum = 0.0;
+                            sum2 = 0.0;
+                            x = 0.0;
+                            y = 0.0;
+                            z = 0.0;
+                            total = 0.0;
 
-                            holder.type.setText(ds1.child("طريقة الدفع").getValue(String.class));
+                            holder.type.setText(dataSnapshot.child("طريقة الدفع").getValue(String.class));
 
-                            for (DataSnapshot snapshot : ds1.getChildren()) {
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                                 if (snapshot.getKey().equals("طريقة الدفع")) {
 
@@ -98,10 +109,11 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
                                     if (tax4 == 0.04) {
                                         taxsum04 = tax4 * total;
                                         y += taxsum04;
-                                        System.out.println(y+"              y");
-                                        holder.tax.setText("ضريبة المبيعات 0.04:" + "\t" + "\t" + y);
+                                        System.out.println(y + "         y");
+
+                                        tax.setText("ضريبة المبيعات 0.04:" + "\t" + "\t" + y);
                                     } else {
-                                        holder.tax.setText("ضريبة المبيعات 0.04:" + "\t" + "\t" + y);
+                                        tax.setText("ضريبة المبيعات 0.04:" + "\t" + "\t" + y);
                                     }
 
                                     if (tax4 == 0.10) {
@@ -111,7 +123,6 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
                                     } else {
                                         holder.tax10.setText("ضريبة المبيعات 0.10:" + "\t" + "\t" + x);
                                     }
-
                                     if (tax4 == 0.16) {
                                         taxsum16 = tax4 * total;
                                         z += taxsum16;
@@ -125,8 +136,6 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
                             }
 
 
-
-
                             FirebaseDatabase.getInstance().getReference("user").child(list.get(position).get(finalI).getUid()).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -136,10 +145,9 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
 
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
                                 }
                             });
-                            if (ds1.getKey().equals(datet)) {
+                            if (dataSnapshot.getKey().equals(datet)) {
                             } else {
                                 holder.editText.setVisibility(View.GONE);
                                 holder.credit.setVisibility(View.GONE);
@@ -148,20 +156,12 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
                                 holder.radioGroup.setVisibility(View.GONE);
                             }
 
-
-                        }
-
-
                     }
-
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
             });
-
-
         holder.credit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
