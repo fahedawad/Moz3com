@@ -5,17 +5,24 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".Bills">
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-    android:layout_width="match_parent"
-    android:id="@+id/swip"
-    android:layout_height="match_parent">
+    tools:context=".User">
+
+   <Button
+       android:visibility="gone"
+       android:id="@+id/pr"
+       android:text="الكشوفات السابقة"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"/>
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/re"
+        android:id="@+id/ff"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

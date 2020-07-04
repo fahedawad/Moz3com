@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 
@@ -24,6 +25,7 @@ public class Bills extends AppCompatActivity {
     RecyclerView recyclerView;
     AdapterSuper adapterSuper;
     String date,id;
+    SwipeRefreshLayout swipeRefreshLayout;
     static ArrayList<itmeList> ncdlist;
     public ArrayList <List<itmeList>> list;
 
@@ -33,6 +35,7 @@ public class Bills extends AppCompatActivity {
         setContentView(R.layout.activity_bills);
         recyclerView =findViewById(R.id.re);
         recyclerView.setHasFixedSize(true);
+        swipeRefreshLayout =findViewById(R.id.swip);
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -41,9 +44,18 @@ public class Bills extends AppCompatActivity {
         ncdlist = new ArrayList<>();
         list = new ArrayList<>();
         getitem();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapterSuper.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+                getitem();
+            }
+        });
     }
     public void getitem (){
-
+        list.clear();
+        ncdlist.clear();
         FirebaseDatabase.getInstance().getReference("order").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -59,9 +71,10 @@ public class Bills extends AppCompatActivity {
                                         for (DataSnapshot ds2 : ds1.getChildren())//items
                                         {           if (ds2.getKey().equals("طريقة الدفع")){}
                                         else {
-                                            int i = Integer.parseInt(ds2.child("العدد").getValue(String.class));
+                                            Double i = Double.parseDouble(ds2.child("العدد").getValue(String.class));
                                             Double total = Double.parseDouble(ds2.child("المجموع").getValue(String.class));
-                                            ncdlist.add(new itmeList(ds2.getKey(), ds2.child("السعر").getValue(String.class), i, ds1.getKey(), dataSnapshot.child("name").getValue(String.class), ds.getKey(), total, ds1.child("نوع البيع").getValue(String.class), total, total));
+                                            System.out.println( ds1.child("نوع البيع").getValue(String.class));
+                                            ncdlist.add(new itmeList(ds2.getKey(), ds2.child("السعر").getValue(String.class), i, ds1.getKey(), dataSnapshot.child("name").getValue(String.class), ds.getKey(), total, ds2.child("نوع البيع").getValue(String.class), total, total));
                                         }
                                         }
                                         ArrayList<itmeList> ncdlist1 = new ArrayList<>();

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.moz3com">
-
+<uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,12 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Change"></activity>
+        <activity android:name=".AllDocuments"></activity>
+        <activity android:name=".Document" />
+        <activity android:name=".User" />
+        <activity android:name=".Change" />
         <activity android:name=".AccountStatement" />
         <activity android:name=".AllBillsForUser" />
         <activity android:name=".PageUser" />
         <activity android:name=".Bills" />
-        <activity android:name=".ChangeItme" />
         <activity android:name=".ItemList" />
         <activity android:name=".AddItem" />
         <activity android:name=".MainActivity">

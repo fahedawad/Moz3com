@@ -6,7 +6,11 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.moz3com.PackageAdapter.AdapterSuper;
 import com.example.moz3com.PackageData.itmeList;
@@ -24,7 +28,8 @@ import java.util.List;
 public class AllBillsForUser extends AppCompatActivity {
     RecyclerView recyclerView;
     AdapterSuper adapterSuper;
-    String date,id,name;
+    String date,id,name,phon;
+    TextView n,p,r;
     static ArrayList<itmeList> ncdlist;
     static ArrayList<String> datelist , uidlist;
     public ArrayList <List<itmeList>> list;
@@ -34,6 +39,9 @@ public class AllBillsForUser extends AppCompatActivity {
         setContentView(R.layout.activity_all_bills_for_user);
         recyclerView =findViewById(R.id.all);
         recyclerView.setHasFixedSize(true);
+        r =findViewById(R.id.r);
+        n =findViewById(R.id.n);
+        p =findViewById(R.id.p);
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
         id =getIntent().getStringExtra("id");
@@ -50,12 +58,27 @@ public class AllBillsForUser extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 name =dataSnapshot.child("name").getValue(String.class);
+                n.setText("الاسم:"+"\t"+"\t"+"\t"+dataSnapshot.child("name").getValue(String.class));
+                p.setText("رقم الهاتف:"+"\t"+"\t"+"\t"+dataSnapshot.child("phon").getValue(String.class));
+                phon =dataSnapshot.child("phon").getValue(String.class);
+                phon =phon.substring(4,14);
+                System.out.println(phon);
+                r.setText("الرصيد السابق:"+"\t"+"\t"+"\t"+dataSnapshot.child("رصيد السابق").getValue(Double.class)+"");
                 System.out.println(name);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+        p.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + phon));
+                if (intent.resolveActivity(getPackageManager())!=null){
+                startActivity(intent);}
             }
         });
     }
@@ -73,8 +96,9 @@ public class AllBillsForUser extends AppCompatActivity {
                             if (ds1.getKey().equals("طريقة الدفع")){ }
                             else {
 
-                                int i = Integer.parseInt(ds1.child("العدد").getValue(String.class));
+                                Double i = Double.parseDouble(ds1.child("العدد").getValue(String.class));
                                 Double total = Double.parseDouble(ds1.child("المجموع").getValue(String.class));
+
                                 ncdlist.add(new itmeList(ds1.getKey(), ds1.child("السعر").getValue(String.class), i,ds.getKey(), name,id, total,  ds1.child("نوع البيع").getValue(String.class), total, total));
                             }
                         }

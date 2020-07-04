@@ -2,9 +2,62 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.AllBillsForUser">
+    <TextView
+        android:text="ملعومات العميل "
+        android:textColor="#000"
+        android:textSize="28dp"
+        android:layout_margin="15dp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <androidx.cardview.widget.CardView
+        android:elevation="15dp"
+        app:cardCornerRadius="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_margin="5dp"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:textColor="#000"
+                android:id="@+id/n"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_margin="5dp"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:textColor="#000"
+                android:id="@+id/p"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_margin="5dp"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:textColor="#000"
+                android:id="@+id/r"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:text="الفواتير السابقة "
+        android:textColor="#000"
+        android:textSize="28dp"
+        android:layout_margin="15dp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 <androidx.recyclerview.widget.RecyclerView
     android:layout_width="match_parent"
     android:layout_height="match_parent"

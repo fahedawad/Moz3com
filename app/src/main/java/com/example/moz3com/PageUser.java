@@ -29,7 +29,7 @@ AdapterUser adapterUser;
 List<User>users;
 RecyclerView recyclerView;
 ArrayList<String >strings;
-String id;
+String uid;
 AutoCompleteTextView autoCompleteTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ AutoCompleteTextView autoCompleteTextView;
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot snapshot:dataSnapshot.getChildren()){
                             users.add(new User(snapshot.child("name").getValue(String.class),snapshot.child("id").getValue(String.class)));
-                                id =snapshot.child("id").getValue(String.class);
+                                uid =snapshot.child("id").getValue(String.class);
                             strings.add(snapshot.child("name").getValue(String.class));
                         }
                         adapterUser =new AdapterUser(PageUser.this,users);
@@ -69,7 +69,7 @@ AutoCompleteTextView autoCompleteTextView;
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedStr  = parent.getItemAtPosition(position).toString();
                 Intent intent =new Intent(PageUser.this, AllBillsForUser.class);
-                intent.putExtra("id",id);
+                intent.putExtra("id",uid);
                 startActivity(intent);
             }
         });

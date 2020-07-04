@@ -10,17 +10,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.moz3com.AccountStatement;
 import com.example.moz3com.AllBillsForUser;
 import com.example.moz3com.PackageData.User;
-import com.example.moz3com.PageUser;
+import com.example.moz3com.PackageData.User2;
 import com.example.moz3com.R;
 
 import java.util.List;
 
-public class AdapterUser extends RecyclerView.Adapter<AdapterUser.ViewHolder> {
+public class AdapterUser2 extends RecyclerView.Adapter<AdapterUser2.ViewHolder> {
     Context context;
-    List<User>users;
-    public AdapterUser(Context context,List<User>users){
+    List<User2>users;
+    public AdapterUser2(Context context, List<User2>users){
         this.users=users;
         this.context=context;
     }
@@ -36,7 +37,7 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.ViewHolder> {
             holder.name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent =new Intent(context, AllBillsForUser.class);
+                    Intent intent =new Intent(context, AccountStatement.class);
                     intent.putExtra("id",id);
                     context.startActivity(intent);
                 }

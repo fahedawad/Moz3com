@@ -3,7 +3,7 @@ package com.example.moz3com.PackageData;
 public class itmeList {
     String name;
     String price;
-    int i;
+    Double i;
     String date;
     String username;
     String uid;
@@ -25,15 +25,15 @@ public class itmeList {
         this.price = price;
     }
 
-    public Integer getI() {
+    public Double getI() {
         return i;
     }
 
-    public void setI(Integer i) {
+    public void setI(Double i) {
         this.i = i;
     }
 
-    public itmeList(String name, String price, Integer i) {
+    public itmeList(String name, String price, Double i) {
         this.name = name;
         this.price = price;
         this.i=i;
@@ -72,7 +72,7 @@ public class itmeList {
         this.tax16 = tax16;
     }
 
-    public itmeList(String name, String price, int i, String date, String username, String uid, double total, String type, double tax10, double tax16) {
+    public itmeList(String name, String price, Double i, String date, String username, String uid, double total, String type, double tax10, double tax16) {
         this.name = name;
         this.price = price;
         this.i = i;
@@ -85,13 +85,13 @@ public class itmeList {
         this.tax16 = tax16;
     }
 
-    public itmeList(String name, Integer i, String date) {
+    public itmeList(String name, Double i, String date) {
         this.name = name;
         this.i = i;
         this.date = date;
     }
 
-    public itmeList(String name, String price, Integer i, String date , String uid) {
+    public itmeList(String name, String price, Double i, String date , String uid) {
         this.name = name;
         this.price = price;
         this.i = i;

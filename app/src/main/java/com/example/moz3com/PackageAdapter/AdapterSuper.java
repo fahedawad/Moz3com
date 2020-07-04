@@ -95,33 +95,34 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
                             z = 0.0;
                             total = 0.0;
 
-                            holder.type.setText(dataSnapshot.child("طريقة الدفع").getValue(String.class));
+
 
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
+                                System.out.println(snapshot.child("طريقة الدفع").getValue(String.class));
                                 if (snapshot.getKey().equals("طريقة الدفع")) {
 
                                 } else {
                                     total = Double.parseDouble(snapshot.child("المجموع").getValue(String.class));
-                                    Double parseDouble = Double.parseDouble(list.get(position).get(finalI).getTotal() + "");
                                     sum = sum + total;
+                                    holder.type.setText(snapshot.child("طريقة الدفع").getValue(String.class));
                                     Double tax4 = Double.parseDouble(snapshot.child("الضريبه").getValue(String.class));
                                     if (tax4 == 0.04) {
                                         taxsum04 = tax4 * total;
                                         y += taxsum04;
                                         System.out.println(y + "         y");
 
-                                        tax.setText("ضريبة المبيعات 0.04:" + "\t" + "\t" + y);
+                                        tax.setText("ضريبة المبيعات %4:" + "\t" + "\t" + y);
                                     } else {
-                                        tax.setText("ضريبة المبيعات 0.04:" + "\t" + "\t" + y);
+                                        tax.setText("ضريبة المبيعات %4:" + "\t" + "\t" + y);
                                     }
 
                                     if (tax4 == 0.10) {
                                         taxsum10 = tax4 * total;
                                         x += taxsum10;
-                                        holder.tax10.setText("ضريبة المبيعات 0.10:" + "\t" + "\t" + x);
+                                        holder.tax10.setText("ضريبة المبيعات %10:" + "\t" + "\t" + x);
                                     } else {
-                                        holder.tax10.setText("ضريبة المبيعات 0.10:" + "\t" + "\t" + x);
+                                        holder.tax10.setText("ضريبة المبيعات %10:" + "\t" + "\t" + x);
                                     }
                                     if (tax4 == 0.16) {
                                         taxsum16 = tax4 * total;
@@ -172,7 +173,7 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
                 String num =holder.editText.getText().toString();
                  i =Double.parseDouble(num);
                 holder.editText.setText("");
-                Previousmoney(i);}
+                Previousmoney(i,position);}
             }
         });
         holder.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -180,11 +181,11 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId){
                     case R.id.cash :
-                        typeCash("نقدي");
+                        typeCash("نقدي",position);
                         break;
                     case R.id.thmam:
-                        Previousmoney(sum);
-                        typeCash("ذمم");
+                        Previousmoney(sum,position);
+                        typeCash("ذمم",position);
                         break;
                 }
             }
@@ -208,27 +209,28 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
                         Double c =Double.parseDouble(holder.txtdf3a.getText().toString());
                         c =-c;
                         holder.txtdf3a.setText("");
-                        Previousmoney(c);
+                        Previousmoney(c,position);
 
                     }
             }
         });
 
     }
-    public void Previousmoney(Double x){
+    public void Previousmoney(Double x,int p){
             f+=x;
         HashMap<String ,Object>hashMap =new HashMap<>();
         hashMap.put("رصيد السابق",f);
-        FirebaseDatabase.getInstance().getReference("user").child(id).updateChildren(hashMap, new DatabaseReference.CompletionListener() {
+        FirebaseDatabase.getInstance().getReference("user").child(list.get(p).get(0).getUid()).updateChildren(hashMap, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                 Toast.makeText(context, "تمت العملية بنجاح", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
-    public void typeCash( String type){
+    public void typeCash( String type,int p){
       DatabaseReference reference=  FirebaseDatabase.getInstance().getReference("order")
-                .child(id).child(datet);
+                .child(list.get(p).get(0).getUid()).child(datet);
         HashMap<String ,Object>map =new HashMap<>();
         map.put("طريقة الدفع",type);
         reference.updateChildren(map, new DatabaseReference.CompletionListener() {

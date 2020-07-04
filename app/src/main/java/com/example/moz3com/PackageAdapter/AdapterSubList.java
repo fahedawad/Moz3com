@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moz3com.PackageData.itmeList;
 import com.example.moz3com.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -32,7 +35,7 @@ public class AdapterSubList extends RecyclerView.Adapter<AdapterSubList.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         holder.items.setText(list.get(position).getName());
         holder.pricetxt.setText(list.get(position).getPrice());
         holder.counter.setText(list.get(position).getI()+"");
@@ -41,29 +44,23 @@ public class AdapterSubList extends RecyclerView.Adapter<AdapterSubList.ViewHold
         if (type.equals("فرط")){
             holder.pases.setVisibility(View.VISIBLE);
         }
-//        FirebaseDatabase.getInstance().getReference("order").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for (DataSnapshot ds:dataSnapshot.getChildren()){
-//                    for (DataSnapshot ds1:ds.getChildren()){
-//                        for (DataSnapshot snapshot :ds1.getChildren()){
-//                            String type =snapshot.child("نوع البيع").getValue(String.class);
-//                            if (type.equals("فرط")){
-//
-//                            }else {
-//
-//                            }
-//                        }
-//
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
+        else if ((list.get(position).getTotal()+"").equals("0.0")){
+            holder.editText.setVisibility(View.VISIBLE);
+            holder.button.setVisibility(View.VISIBLE);
+
+        }
+        holder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.editText.setVisibility(View.GONE);
+                Double newtotal = Double.parseDouble(holder.editText.getText().toString()) * Double.parseDouble(list.get(position).getPrice()) ;
+                holder.button.setVisibility(View.GONE);
+                FirebaseDatabase.getInstance().getReference("order").child(list.get(position).getUid()).child(list.get(position).getDate())
+                        .child(list.get(position).getName()).child("المجموع").setValue(newtotal+"");
+            }
+        });
+
+
     }
 
     @Override
@@ -76,6 +73,8 @@ public class AdapterSubList extends RecyclerView.Adapter<AdapterSubList.ViewHold
         TextView items;
         TextView counter;
         TextView total;
+        EditText editText;
+        Button button;
         public ViewHolder(@NonNull View item) {
             super(item);
             pricetxt =item.findViewById(R.id.price);
@@ -83,6 +82,8 @@ public class AdapterSubList extends RecyclerView.Adapter<AdapterSubList.ViewHold
             counter=item.findViewById(R.id.count);
             total = item.findViewById(R.id.total);
             pases =item.findViewById(R.id.pases);
+            editText =item.findViewById(R.id.priceedit);
+            button =item.findViewById(R.id.updateprice);
         }
     }
 }

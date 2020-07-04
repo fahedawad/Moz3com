@@ -43,5 +43,21 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this,PageUser.class));
             }
         });
+        findViewById(R.id.kshf).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(MainActivity.this,User.class);
+                intent.putExtra("key","key2");
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.report).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(MainActivity.this,User.class);
+                intent.putExtra("key","key");
+                startActivity(intent);
+            }
+        });
     }
 }
