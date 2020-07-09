@@ -9,6 +9,15 @@ public class itmeList {
     String uid;
     double total,tax4,tax10,tax16;
     String type;
+    String wieght;
+
+    public String getWieght() {
+        return wieght;
+    }
+
+    public void setWieght(String wieght) {
+        this.wieght = wieght;
+    }
 
     public String getType() {
         return type;
@@ -72,7 +81,7 @@ public class itmeList {
         this.tax16 = tax16;
     }
 
-    public itmeList(String name, String price, Double i, String date, String username, String uid, double total, String type, double tax10, double tax16) {
+    public itmeList(String name, String price, Double i, String date, String username, String uid, double total, String type, double tax10, double tax16,String wieght) {
         this.name = name;
         this.price = price;
         this.i = i;
@@ -83,6 +92,7 @@ public class itmeList {
         this.type = type;
         this.tax10 = tax10;
         this.tax16 = tax16;
+        this.wieght=wieght;
     }
 
     public itmeList(String name, Double i, String date) {

@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.example.moz3com.PackageAdapter.AdapterSuper;
 import com.example.moz3com.PackageData.itmeList;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -33,6 +32,7 @@ public class AllBillsForUser extends AppCompatActivity {
     static ArrayList<itmeList> ncdlist;
     static ArrayList<String> datelist , uidlist;
     public ArrayList <List<itmeList>> list;
+    String wieght;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,9 +60,12 @@ public class AllBillsForUser extends AppCompatActivity {
                 name =dataSnapshot.child("name").getValue(String.class);
                 n.setText("الاسم:"+"\t"+"\t"+"\t"+dataSnapshot.child("name").getValue(String.class));
                 p.setText("رقم الهاتف:"+"\t"+"\t"+"\t"+dataSnapshot.child("phon").getValue(String.class));
-                phon =dataSnapshot.child("phon").getValue(String.class);
-                phon =phon.substring(4,14);
-                System.out.println(phon);
+                try {
+                    phon =dataSnapshot.child("phon").getValue(String.class);
+                    phon =phon.substring(4,14);
+                    System.out.println(phon);
+                }catch (Exception e){}
+
                 r.setText("الرصيد السابق:"+"\t"+"\t"+"\t"+dataSnapshot.child("رصيد السابق").getValue(Double.class)+"");
                 System.out.println(name);
             }
@@ -98,8 +101,11 @@ public class AllBillsForUser extends AppCompatActivity {
 
                                 Double i = Double.parseDouble(ds1.child("العدد").getValue(String.class));
                                 Double total = Double.parseDouble(ds1.child("المجموع").getValue(String.class));
-
-                                ncdlist.add(new itmeList(ds1.getKey(), ds1.child("السعر").getValue(String.class), i,ds.getKey(), name,id, total,  ds1.child("نوع البيع").getValue(String.class), total, total));
+                                if (ds1.hasChild("الوزن")){
+                                    wieght =ds1.child("الوزن").getValue(String.class);
+                                }
+                                else wieght ="--";
+                                ncdlist.add(new itmeList(ds1.getKey(), ds1.child("السعر").getValue(String.class), i,ds.getKey(), name,id, total,  ds1.child("نوع البيع").getValue(String.class), total, total,wieght));
                             }
                         }
                         ArrayList<itmeList> ncdlist1 = new ArrayList<>();

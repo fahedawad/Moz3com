@@ -36,12 +36,18 @@ public class AllDocuments extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot snapshot:dataSnapshot.getChildren()){
+                        for (DataSnapshot s1:snapshot.getChildren()){
                             if (snapshot.child("طرقة الدقع").getValue(String.class).equals("شيك")){
-                                docs.add(new Doc(snapshot.child("الاسم").getValue(String.class),snapshot.child("التاريخ").getValue(String.class),snapshot.child("المبلغ").getValue(String.class),snapshot.child("كتابة").getValue(String.class),snapshot.child("رقم السيك").getValue(String.class),snapshot.child("البنك").getValue(String.class),snapshot.child("مقابل").getValue(String.class),snapshot.child("طرقة الدقع").getValue(String.class)));
+                                docs.add(new Doc(s1.child("الاسم").getValue(String.class),s1.child("التاريخ").getValue(String.class),
+                                        s1.child("المبلغ").getValue(String.class),s1.child("كتابة").getValue(String.class),s1.child("رقم السيك").getValue(String.class),
+                                        s1.child("البنك").getValue(String.class),s1.child("مقابل").getValue(String.class),s1.child("طرقة الدقع").getValue(String.class)));
                             }
                             if (snapshot.child("طرقة الدقع").getValue(String.class).equals("نقد")){
-                                docs.add(new Doc(snapshot.child("الاسم").getValue(String.class),snapshot.child("التاريخ").getValue(String.class),snapshot.child("المبلغ").getValue(String.class),snapshot.child("كتابة").getValue(String.class),"-----------","-------------",snapshot.child("مقابل").getValue(String.class),snapshot.child("طرقة الدقع").getValue(String.class)));
+                                docs.add(new Doc(s1.child("الاسم").getValue(String.class),s1.child("التاريخ").getValue(String.class),
+                                        s1.child("المبلغ").getValue(String.class),s1.child("كتابة").getValue(String.class),"-----------","-------------",s1.child("مقابل").getValue(String.class),s1.child("طرقة الدقع").getValue(String.class)));
                             }
+                        }
+
                     }
                     adapterDoc =new AdapterDoc(docs,AllDocuments.this);
 

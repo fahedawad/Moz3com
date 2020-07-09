@@ -32,7 +32,7 @@ public class Document extends AppCompatActivity {
     TextView name,date;
     LinearLayout linearLayout;
     EditText mony,numshak,nameshak,bio,naony;
-    String key,monytxt,numtxt,bank,biotxt,type,datetxt,n,fahed;
+    String key,monytxt,numtxt,bank,biotxt,type,datetxt,n,fahed,d;
     RadioGroup radioGroup;
     Button ok;
     List<User2>user2s;
@@ -50,6 +50,7 @@ public class Document extends AppCompatActivity {
         date =findViewById(R.id.daterep);
         SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
         date.setText(simpleDateFormat.format(new Date()));
+        d=simpleDateFormat.format(new Date());
         datetxt =simpleDateFormat.format(new Date());
         nameshak =findViewById(R.id.nameshak);
         numshak =findViewById(R.id.numshak);
@@ -113,9 +114,7 @@ public class Document extends AppCompatActivity {
        if (type.isEmpty()){
            Toast.makeText(this, "قم بأخنيار نوع الدقع شيك ام نقد", Toast.LENGTH_SHORT).show();
        }
-       else if (s>f){
-           Toast.makeText(this, "قيمة الدفعة أكبر من الرصيد السابق", Toast.LENGTH_SHORT).show();
-       }
+
        else {
 
            HashMap<String,Object>map =new HashMap<>();
@@ -127,7 +126,7 @@ public class Document extends AppCompatActivity {
 
                }
            });
-           DatabaseReference databaseReference =FirebaseDatabase.getInstance().getReference("Catch Receipt").child(key);
+           DatabaseReference databaseReference =FirebaseDatabase.getInstance().getReference("Catch Receipt").child(key).child(d);
            HashMap<String ,Object>hashMap =new HashMap<>();
            if (type.equals("نقد")){
                hashMap.put("المبلغ",monytxt);

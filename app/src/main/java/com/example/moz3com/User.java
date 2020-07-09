@@ -48,7 +48,7 @@ public class User extends AppCompatActivity {
         strings =new ArrayList<>();
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        FirebaseDatabase.getInstance().getReference("user").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("user").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot:dataSnapshot.getChildren()){
@@ -57,19 +57,16 @@ public class User extends AppCompatActivity {
                     uid =snapshot.child("id").getValue(String.class);
                 }
 
-                    String key =getIntent().getStringExtra("key");
-                    if (key.equals("key")){
-                        button.setVisibility(View.VISIBLE);
-                        AdapterUser3 adapterUser3 =new AdapterUser3(User.this,users);
-                        recyclerView.setAdapter(adapterUser3);
-                    }
-                    else if (key.equals("key2")){
-                        adapterUser =new AdapterUser2(User.this,users);
-                        recyclerView.setAdapter(adapterUser);
-                    }
-               
-
-
+                String key =getIntent().getStringExtra("key");
+                if (key.equals("key")){
+                    button.setVisibility(View.VISIBLE);
+                    AdapterUser3 adapterUser3 =new AdapterUser3(User.this,users);
+                    recyclerView.setAdapter(adapterUser3);
+                }
+                else if (key.equals("key2")){
+                    adapterUser =new AdapterUser2(User.this,users);
+                    recyclerView.setAdapter(adapterUser);
+                }
             }
 
             @Override

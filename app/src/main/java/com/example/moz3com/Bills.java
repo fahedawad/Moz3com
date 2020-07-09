@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+
 import android.os.Bundle;
 
 import com.example.moz3com.PackageAdapter.AdapterSuper;
@@ -28,6 +29,7 @@ public class Bills extends AppCompatActivity {
     SwipeRefreshLayout swipeRefreshLayout;
     static ArrayList<itmeList> ncdlist;
     public ArrayList <List<itmeList>> list;
+    String wieght;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +76,11 @@ public class Bills extends AppCompatActivity {
                                             Double i = Double.parseDouble(ds2.child("العدد").getValue(String.class));
                                             Double total = Double.parseDouble(ds2.child("المجموع").getValue(String.class));
                                             System.out.println( ds1.child("نوع البيع").getValue(String.class));
-                                            ncdlist.add(new itmeList(ds2.getKey(), ds2.child("السعر").getValue(String.class), i, ds1.getKey(), dataSnapshot.child("name").getValue(String.class), ds.getKey(), total, ds2.child("نوع البيع").getValue(String.class), total, total));
+                                            if (ds2.hasChild("الوزن")){
+                                                wieght =ds2.child("الوزن").getValue(String.class);
+                                            }
+                                            else wieght ="--";
+                                            ncdlist.add(new itmeList(ds2.getKey(), ds2.child("السعر").getValue(String.class), i, ds1.getKey(), dataSnapshot.child("name").getValue(String.class), ds.getKey(), total, ds2.child("نوع البيع").getValue(String.class), total, total,wieght));
                                         }
                                         }
                                         ArrayList<itmeList> ncdlist1 = new ArrayList<>();

@@ -46,27 +46,77 @@
         android:text="نقدي"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:background="#AAABAC"
+            android:text="صنف"
+            android:textStyle="bold"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="18sp" />
+        <TextView
+            android:background="#AAABAC"
+            android:text="السعر"
+            android:textStyle="bold"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <TextView
+            android:background="#AAABAC"
+            android:text="العدد"
+            android:textStyle="bold"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="18sp" />
+        <TextView
+            android:background="#AAABAC"
+            android:text="المجموع"
+            android:textStyle="bold"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="18sp" />
+        <TextView
+            android:background="#AAABAC"
+            android:text="الوزن"
+            android:textStyle="bold"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="18sp" />
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/recorder"
         android:layout_height="wrap_content"/>
-<LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <Button
-        android:id="@+id/save"
-        android:text="تخزين"
-        android:layout_width="70dp"
-        android:layout_height="50dp"/>
-
-    <EditText
-        android:inputType="numberDecimal"
-        android:id="@+id/e"
-        android:hint="رصيد سابق"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/></LinearLayout>
-
     <RadioGroup
         android:id="@+id/radiox"
         android:orientation="horizontal"
@@ -86,6 +136,32 @@
             android:layout_height="wrap_content"/>
     </RadioGroup>
     <CheckBox
+        android:id="@+id/c"
+        android:text="ادخال رصيد سابق"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+<LinearLayout
+    android:id="@+id/monypri"
+    android:visibility="gone"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/save"
+        android:text="تخزين"
+        android:layout_width="70dp"
+        android:layout_height="50dp"/>
+
+    <EditText
+        android:inputType="numberDecimal"
+        android:id="@+id/e"
+        android:hint="رصيد سابق"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/></LinearLayout>
+
+
+    <CheckBox
+        android:visibility="gone"
         android:id="@+id/dd"
         android:text="ادخال دفعة"
         android:layout_width="match_parent"
@@ -109,11 +185,7 @@
             android:hint="رصيد سابق"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/></LinearLayout>
-        <TextView
-            android:id="@+id/total"
-            android:text="المجموع"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+
     <TextView
         android:id="@+id/tax"
         android:text="ضريبة المبيعات"
@@ -129,6 +201,12 @@
         android:text="ضريبة المبيعات"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="المجموع" />
 </LinearLayout>
 
 

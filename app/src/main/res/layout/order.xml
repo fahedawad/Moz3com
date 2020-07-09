@@ -73,11 +73,21 @@
             android:padding="5dp"
             android:textColor="#000"
             android:textSize="18sp" />
-
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/weight"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="18sp" />
     </LinearLayout>
     <EditText
         android:inputType="numberDecimal"
-        android:hint="ادخل السعر هنا"
+        android:hint="ادخل الوزن هنا"
         android:visibility="gone"
         android:id="@+id/priceedit"
         android:layout_width="match_parent"

@@ -9,6 +9,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,7 +85,6 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-
                             taxsum04 = 0.0;
                             taxsum10 = 0.0;
                             taxsum16 = 0.0;
@@ -94,18 +94,21 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
                             y = 0.0;
                             z = 0.0;
                             total = 0.0;
-
-
-
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                                System.out.println(snapshot.child("طريقة الدفع").getValue(String.class));
+
                                 if (snapshot.getKey().equals("طريقة الدفع")) {
 
                                 } else {
                                     total = Double.parseDouble(snapshot.child("المجموع").getValue(String.class));
                                     sum = sum + total;
-                                    holder.type.setText(snapshot.child("طريقة الدفع").getValue(String.class));
+                                    holder.type.setText(dataSnapshot.child("طريقة الدفع").getValue(String.class));
+                                    System.out.println(snapshot.child("طريقة الدفع").getValue(String.class));
+                                    if ((snapshot.child("طريقة الدفع").getValue(String.class)+"").equals("نقدي")){
+                                        holder.chash.setChecked(true);
+                                    }else if ((snapshot.child("طريقة الدفع").getValue(String.class)+"").equals("ذمم")){
+                                            holder.thmam.setChecked(true);
+                                    }
                                     Double tax4 = Double.parseDouble(snapshot.child("الضريبه").getValue(String.class));
                                     if (tax4 == 0.04) {
                                         taxsum04 = tax4 * total;
@@ -184,7 +187,7 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
                         typeCash("نقدي",position);
                         break;
                     case R.id.thmam:
-                        Previousmoney(sum,position);
+                        Previousmoney(sum2,position);
                         typeCash("ذمم",position);
                         break;
                 }
@@ -198,20 +201,26 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
                 }
             }
         });
-        holder.df3a.setOnClickListener(new View.OnClickListener() {
+//        holder.df3a.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                    if (holder.txtdf3a.getText().toString().isEmpty()){
+//                       holder.txtdf3a.setError("أدخل قيمة الدفعة");
+//                    }
+//                    else  {
+//                        Double c =Double.parseDouble(holder.txtdf3a.getText().toString());
+//                        c =-c;
+//                        holder.txtdf3a.setText("");
+//                        Previousmoney(c,position);
+//
+//                    }
+//            }
+//        });
+        holder.checkBox1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-                    if (holder.txtdf3a.getText().toString().isEmpty()){
-                       holder.txtdf3a.setError("أدخل قيمة الدفعة");
-                    }
-                    else  {
-                        Double c =Double.parseDouble(holder.txtdf3a.getText().toString());
-                        c =-c;
-                        holder.txtdf3a.setText("");
-                        Previousmoney(c,position);
-
-                    }
+            public void onClick(View view) {
+                holder.linearLayout1.setVisibility(View.VISIBLE);
             }
         });
 
@@ -253,8 +262,9 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
         RadioGroup radioGroup;
         EditText editText,txtdf3a;
         Button credit,df3a;
-        LinearLayout linearLayout;
-        CheckBox checkBox;
+        LinearLayout linearLayout,linearLayout1;
+        CheckBox checkBox,checkBox1;
+        RadioButton chash,thmam;
         public ViewHolder(@NonNull View i) {
             super(i);
             name =i.findViewById(R.id.nametxt);
@@ -271,7 +281,11 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
             txtdf3a =i.findViewById(R.id.txtdfa);
             df3a =i.findViewById(R.id.dfa);
             linearLayout =i.findViewById(R.id.liner);
+            linearLayout1 =i.findViewById(R.id.monypri);
             checkBox =i.findViewById(R.id.dd);
+            checkBox1 =i.findViewById(R.id.c);
+            chash =i.findViewById(R.id.cash);
+            thmam =i.findViewById(R.id.thmam);
         }
     }
 }
