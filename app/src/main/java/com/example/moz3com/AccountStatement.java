@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +46,8 @@ public class AccountStatement extends AppCompatActivity  {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
         totalacc =findViewById(R.id.totalacc);
+        final DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
         users =new ArrayList<>();
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -101,7 +105,8 @@ public class AccountStatement extends AppCompatActivity  {
                      }
 
                  }
-                  users.add(new AccountData(id,sum2+""));
+
+                  users.add(new AccountData(id,df.format(sum2)+""));
                   taxsum04 = 0.0;
                   taxsum10 = 0.0;
                   taxsum16 = 0.0;
