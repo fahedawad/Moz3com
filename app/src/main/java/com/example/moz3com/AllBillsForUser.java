@@ -6,12 +6,25 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.moz3com.ForPrint.DeviceList;
+import com.example.moz3com.ForPrint.PrinterCommands;
+import com.example.moz3com.ForPrint.Utils;
 import com.example.moz3com.PackageAdapter.AdapterSuper;
 import com.example.moz3com.PackageData.itmeList;
 import com.google.firebase.database.DataSnapshot;
@@ -19,6 +32,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,6 +48,7 @@ public class AllBillsForUser extends AppCompatActivity {
     static ArrayList<String> datelist , uidlist;
     public ArrayList <List<itmeList>> list;
     String wieght;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,4 +138,5 @@ public class AllBillsForUser extends AppCompatActivity {
             }
         });
     }
+
 }

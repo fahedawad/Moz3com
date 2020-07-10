@@ -1,6 +1,8 @@
 package com.example.moz3com.PackageAdapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,16 +22,16 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.moz3com.Bills;
-import com.example.moz3com.PackageData.Data;
 import com.example.moz3com.PackageData.itmeList;
 import com.example.moz3com.R;
+import com.example.moz3com.print_invoices;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -223,6 +225,14 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
                 holder.linearLayout1.setVisibility(View.VISIBLE);
             }
         });
+        holder.print.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context , print_invoices.class);
+                intent.putExtra("list", (Serializable) list.get(position));
+                context.startActivity(intent);
+            }
+        });
 
     }
     public void Previousmoney(Double x,int p){
@@ -261,7 +271,7 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
         TextView date , totaloftotal,name,tax,tax10,tax16,type;
         RadioGroup radioGroup;
         EditText editText,txtdf3a;
-        Button credit,df3a;
+        Button credit,df3a,print;
         LinearLayout linearLayout,linearLayout1;
         CheckBox checkBox,checkBox1;
         RadioButton chash,thmam;
@@ -275,6 +285,7 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
             tax16 =i.findViewById(R.id.tax16);
             itemlistrec =i.findViewById(R.id.recorder);
             editText =i.findViewById(R.id.e);
+            print =i.findViewById(R.id.printbtn);
             credit =i.findViewById(R.id.save);
             radioGroup =i.findViewById(R.id.radiox);
             type =i.findViewById(R.id.type);

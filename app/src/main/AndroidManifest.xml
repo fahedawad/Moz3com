@@ -3,6 +3,9 @@
     package="com.example.moz3com">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -11,10 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RigesterUser"></activity>
+        <activity android:name=".print_invoices"></activity>
+        <activity android:name=".RigesterUser" />
         <activity android:name=".ListScreen" />
         <activity android:name=".Auth" />
         <activity android:name=".Jard" />
+        <activity android:name=".ForPrint.DeviceList" />
         <activity android:name=".AllDocuments" />
         <activity android:name=".Document" />
         <activity android:name=".User" />

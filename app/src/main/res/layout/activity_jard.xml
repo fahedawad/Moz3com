@@ -1,140 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".Jard">
-  <Button
-      android:id="@+id/getdate"
-      android:text="أختار التاريخ"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
-    <Button
-        android:id="@+id/okpushdata"
-        android:text="جلب البياناتخ"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <TextView
-            android:text="صنف"
-            android:textStyle="bold"
-            android:id="@+id/item"
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="5dp"
-            android:textColor="#000"
-            android:textSize="18sp" />
-
-        <TextView
-            android:text="سعر شراء"
-            android:id="@+id/price"
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="5dp"
-            android:textColor="#000"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/ba3"
-            android:text="سعر البيع"
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="5dp"
-            android:textColor="#000"
-            android:textSize="18sp" />
-        <TextView
-            android:id="@+id/contaval"
-            android:text="العدد المتبقي"
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="5dp"
-            android:textColor="#000"
-            android:textSize="18sp" />
         <LinearLayout
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <TextView
-                android:text="العدد المباع"
-                android:textStyle="bold"
-                android:id="@+id/count"
-                android:layout_width="35dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/getdate"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
+                android:text="أختار التاريخ" />
+
+            <Button
+                android:id="@+id/okpushdata"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="جلب البياناتخ" />
+
+            <LinearLayout
+                android:id="@+id/printlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:padding="5dp"
-                android:textColor="#000"
-                android:textSize="18sp" />
-            <TextView
-                android:id="@+id/pases"
-                android:visibility="gone"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:text="حبات"
-                android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:textSize="12dp" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/item"
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="صنف"
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="سعر شراء"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ba3"
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="سعر البيع"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/contaval"
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="العدد المتبقي"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/count"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="العدد المباع"
+                        android:textColor="#000"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pases"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="حبات"
+                        android:textColor="#000"
+                        android:textSize="12dp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/total"
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="المجموع"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/rb6"
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="المربح"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/datejard"
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="تاريخ"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/jard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
-
-
-        <TextView
-            android:text="المجموع"
-            android:id="@+id/total"
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="5dp"
-            android:textColor="#000"
-            android:textSize="18sp" />
-        <TextView
-            android:text="المربح"
-            android:id="@+id/rb6"
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="5dp"
-            android:textColor="#000"
-            android:textSize="18sp" />
-        <TextView
-            android:text="تاريخ"
-            android:id="@+id/datejard"
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="5dp"
-            android:textColor="#000"
-            android:textSize="18sp" />
-
+        <ImageView
+            android:id="@+id/print"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/ic_baseline_print_24" />
     </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/jard"/>
-</LinearLayout>
+</ScrollView>

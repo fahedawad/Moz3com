@@ -1,6 +1,8 @@
 package com.example.moz3com.PackageData;
 
-public class itmeList {
+import java.io.Serializable;
+
+public class itmeList implements Serializable {
     String name;
     String price;
     Double i;
