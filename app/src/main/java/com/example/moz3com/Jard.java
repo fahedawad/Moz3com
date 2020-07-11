@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +29,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.moz3com.ForPrint.DeviceList;
 import com.example.moz3com.ForPrint.PrinterCommands;
@@ -61,11 +64,15 @@ public class Jard extends AppCompatActivity {
     private static BluetoothSocket btsocket;
     private static OutputStream outputStream;
     ImageView print;
+    ProgressDialog dialog;
+    String dateString;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jard);
         printlayout = findViewById(R.id.printlayout);
+        dialog =new ProgressDialog(this);
+        dialog.setMessage("جاري تحميل الاصناف");
         list =new ArrayList<>();
         sumcount =0.0;
         sum = 0.0;
@@ -75,6 +82,7 @@ public class Jard extends AppCompatActivity {
         z = 0.0;
         total = 0.0;
         print = findViewById(R.id.print);
+        dateString ="";
         recyclerView =findViewById(R.id.jard);
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -94,7 +102,7 @@ public class Jard extends AppCompatActivity {
                                 Calendar calendar = Calendar.getInstance();
                                 calendar.set(year, month, day);
                                 SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-                                String dateString = formatter.format(calendar.getTime());
+                                 dateString = formatter.format(calendar.getTime());
                                 date.setText(dateString);
                             }
                         },calendar.get(Calendar.YEAR),
@@ -107,7 +115,16 @@ public class Jard extends AppCompatActivity {
             findViewById(R.id.okpushdata).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                 getData(date.getText().toString());
+
+                    TextView view1 =findViewById(R.id.fahedsate);
+                    view1.setText("\t"+"\t"+"\t"+"جرد تاريخ :"+dateString);
+                    if (dateString.equals("")){
+                        Toast.makeText(Jard.this, "يجب تحديد التاريخ في البداية", Toast.LENGTH_SHORT).show();
+                    }else {
+                        dialog.show();
+                        getData(date.getText().toString());
+                    }
+
                 }
             });
 
@@ -124,11 +141,12 @@ public class Jard extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    list.add(new DataJard(getdate , ds.getKey() , ds.child("المجموع").getValue(String.class)+"",""+ds.child("سعر البيع").getValue(String.class),""+ds.child("سعر البيع").getValue(String.class),""+ds.child("العدد").getValue(String.class),
+                    list.add(new DataJard(getdate , ds.getKey() , ds.child("المجموع").getValue(String.class)+"",""+ds.child("سعر البيع").getValue(String.class),""+ds.child("سعر الشراء").getValue(String.class),""+ds.child("العدد").getValue(String.class),
                             ""+ds.child("الربح").getValue(String.class),""+ds.child("العدد المتاح").getValue(String.class)));
                 }
                 adapterJard =new AdapterJard(list,Jard.this);
                 recyclerView.setAdapter(adapterJard);
+                dialog.dismiss();
             }
 
             @Override
@@ -167,36 +185,10 @@ public class Jard extends AppCompatActivity {
             }
         }
     }
-//    public void printPhoto2() {
-//        try {
-//            //printPhotoFirst();
-//            int size = recyclerView.getAdapter().getItemCount();
-//            recyclerView.smoothScrollToPosition(0);
-//            LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-//            for (int i = 0 ; i<size ; i++){
-//                System.out.println(i + "                    i");
-//                Bitmap bmp = getBitmapFromView(recyclerView.getChildAt(i));
-//                Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 100 , false);
-//                if(b2!=null){
-//                    byte[] command = Utils.decodeBitmap(b2);
-//                    System.out.println(command + "          command");
-//                    //outputStream.write(PrinterCommands.ESC_ALIGN_CENTER);
-//                    //printText(command);
-//                }else{
-//                    //Toast.makeText(MainActivity.this , "Print Photo error"+"the file isn't exists" , Toast.LENGTH_LONG).show();
-//                    Log.e("Print Photo error", "the file isn't exists");
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            //Toast.makeText(MainActivity.this,"PrintTools"+ "the file isn't exists" , Toast.LENGTH_LONG).show();
-//            Log.e("PrintTools", "the file isn't exists");
-//        }
-//    }
 
     public void printPhoto() {
         try {
-            //printPhotoFirst();
+            printPhotoFirst();
             int size = recyclerView.getAdapter().getItemCount();
                 for (int i = 0 ; i<size ; i++){
                     System.out.println(i + "                    i");

@@ -37,7 +37,7 @@ public class AccountStatement extends AppCompatActivity  {
        List<Kshf>kshfs;
        TextView totalacc;
        List<AccountData>users;
-       Double sum ,sum2,taxsum04,x,y,taxsum10,taxsum16,z,i,f,total;
+       Double sum ,sum2,taxsum04,x,y,taxsum10,taxsum16,z,i,f,total,fahed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +60,7 @@ public class AccountStatement extends AppCompatActivity  {
         y = 0.0;
         z = 0.0;
       total =0.0;
+        fahed =0.0;
         kshfs =new ArrayList<>();
         df3atrec =findViewById(R.id.hala);
         df3atrec.setItemAnimator(new DefaultItemAnimator());
@@ -99,8 +100,10 @@ public class AccountStatement extends AppCompatActivity  {
 
                          }
 
-                         sum2 = y + x + z + sum;
 
+                         sum2 = y + x + z + sum;
+                         fahed+=sum2;
+                         totalacc.setText(df .format(fahed)+"");
 
                      }
 

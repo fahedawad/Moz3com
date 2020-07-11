@@ -1,20 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".print_invoices">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/printimg"
+        android:layout_gravity="center"
+        android:background="@drawable/samer"
+        android:layout_width="250dp"
+        android:layout_height="200dp"></ImageView>
+    <LinearLayout
+        android:id="@+id/printlayout2"
+        android:background="#F2F2F2"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <TextView
+
+            android:text="مؤسسة سامر ابو عطية للمجمدات"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="22dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textColor="#000"
+                android:textSize="22dp"
+                android:layout_margin="10dp"
+                android:id="@+id/txtdate"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <TextView
+                android:id="@+id/nametxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textColor="#000"
+                android:textSize="22dp"
+                android:textStyle="bold"></TextView>
+
+
+        </LinearLayout>
+        <TextView
+            android:textStyle="bold"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="22dp"
+            android:id="@+id/t"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/printlayout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:background="#AAABAC"
+            android:text="صنف"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="18sp" />
+        <TextView
+            android:background="#AAABAC"
+            android:text="السعر"
+            android:textStyle="bold"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <TextView
+            android:background="#AAABAC"
+            android:text="العدد"
+            android:textStyle="bold"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="18sp" />
+        <TextView
+            android:background="#AAABAC"
+            android:text="المجموع"
+
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="15dp" />
+        <TextView
+            android:background="#AAABAC"
+            android:text="الوزن"
+            android:textStyle="bold"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="18sp" />
+    </LinearLayout>
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rec"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" /></androidx.core.widget.NestedScrollView>
+<LinearLayout
+    android:id="@+id/printtotal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/tax"
+        android:text="ضريبة المبيعات"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tax10"
+        android:text="ضريبة المبيعات"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tax16"
+        android:text="ضريبة المبيعات"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="المجموع" />
+</LinearLayout>
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         app:srcCompat="@drawable/ic_baseline_print_24" />
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

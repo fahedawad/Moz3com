@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:background="#3B3434"
     android:layout_height="match_parent"
     tools:context=".AddItem">
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -17,17 +19,25 @@
         app:civ_border_overlay="true"
         android:id="@+id/imgitem"
         app:civ_border_width="3dp"
-        android:src="@drawable/ic_launcher_background"
+        android:src="@drawable/add"
         android:layout_gravity="center"
         android:layout_height="200dp" />
 
         <EditText
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:padding="20dp"
+            android:background="@drawable/boarder"
             android:id="@+id/item"
             android:hint="اسم الصنف"
             android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
+            android:textColorHint="#fff"
+            android:textColor="#fff"
+            android:padding="20dp"
+            android:background="@drawable/boarder"
             android:id="@+id/pricesale"
             android:hint="سعر البيع"
             android:inputType="numberDecimal"
@@ -35,6 +45,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
+            android:textColorHint="#fff"
+            android:textColor="#fff"
+            android:padding="20dp"
+            android:background="@drawable/boarder"
             android:id="@+id/tax"
             android:hint="ضريبه"
             android:inputType="numberDecimal"
@@ -42,6 +56,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
+            android:textColorHint="#fff"
+            android:textColor="#fff"
+            android:padding="20dp"
+            android:background="@drawable/boarder"
             android:id="@+id/pricebuy"
             android:hint="سعر الشراء"
             android:inputType="numberDecimal"
@@ -49,7 +67,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
-
+            android:textColorHint="#fff"
+            android:textColor="#fff"
+            android:padding="20dp"
+            android:background="@drawable/boarder"
             android:id="@+id/count"
             android:hint="العدد المتاح"
             android:inputType="number"
@@ -58,7 +79,8 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:background="#03A9F4"
+            android:layout_margin="10dp"
+            android:background="#fff"
             android:id="@+id/date"
             android:textSize="18dp"
             android:textColor="#000"
@@ -66,8 +88,12 @@
             android:gravity="center"
             android:text="أضغط لأختر التاريخ"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="70dp"/>
         <EditText
+            android:textColorHint="#fff"
+            android:textColor="#fff"
+            android:padding="20dp"
+            android:background="@drawable/boarder"
             android:gravity="center"
             android:id="@+id/datetxt"
             android:hint="مكان ارجاع التاريخ"
@@ -76,9 +102,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
-
-            android:textSize="18dp"
-            android:textColor="#000"
+            android:textSize="25dp"
+            android:textColor="#fff"
             android:textStyle="bold"
            android:layout_margin="5dp"
             android:text="طريقة البيع "
@@ -89,16 +114,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RadioButton
+                android:textColor="#fff"
                 android:id="@+id/b"
                 android:text="بلحبة"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <RadioButton
+                android:textColor="#fff"
                 android:id="@+id/krton"
                 android:text="بلكرتونه"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <RadioButton
+                android:textColor="#fff"
                 android:id="@+id/k"
                 android:text="بلكيلو"
                 android:layout_width="wrap_content"
@@ -106,7 +134,10 @@
 
         </RadioGroup>
         <EditText
-
+            android:textColorHint="#fff"
+            android:textColor="#fff"
+            android:padding="20dp"
+            android:background="@drawable/boarder"
             android:visibility="gone"
             android:id="@+id/itemcount"
             android:hint="العدد الحبات بلكرتونه"
@@ -118,7 +149,8 @@
         <Button
             android:id="@+id/pushdata"
             android:text="ادخال الصنف"
+            android:background="#fff"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="70dp"/>
     </LinearLayout>
 </ScrollView>

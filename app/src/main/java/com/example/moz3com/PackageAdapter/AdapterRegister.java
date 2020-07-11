@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.moz3com.AllBillsForUser;
 import com.example.moz3com.ListScreen;
 import com.example.moz3com.PackageData.User;
 import com.example.moz3com.R;

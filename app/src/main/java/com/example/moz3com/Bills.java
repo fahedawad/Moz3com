@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import com.example.moz3com.PackageAdapter.AdapterSuper;
@@ -17,6 +18,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,7 +31,9 @@ public class Bills extends AppCompatActivity {
     String date,id;
     SwipeRefreshLayout swipeRefreshLayout;
     static ArrayList<itmeList> ncdlist;
+    final DecimalFormat df = new DecimalFormat("#.##");
     public ArrayList <List<itmeList>> list;
+    ProgressDialog dialog;
     String wieght;
 
     @Override
@@ -36,6 +41,10 @@ public class Bills extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bills);
         recyclerView =findViewById(R.id.re);
+        dialog =new ProgressDialog(this);
+        dialog.setMessage("جاري تحميل الطلبات");
+        dialog.show();
+        df.setRoundingMode(RoundingMode.CEILING);
         recyclerView.setHasFixedSize(true);
         swipeRefreshLayout =findViewById(R.id.swip);
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
@@ -89,6 +98,7 @@ public class Bills extends AppCompatActivity {
                                         ncdlist.clear();
                                         adapterSuper = new AdapterSuper(Bills.this,list);
                                         recyclerView.setAdapter(adapterSuper);
+                                        dialog.dismiss();
 
                                     }
                                     @Override

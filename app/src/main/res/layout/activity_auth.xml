@@ -4,24 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/back"
     android:layout_height="match_parent"
     tools:context=".Auth">
 <EditText
+    android:background="#fff"
+    android:padding="15dp"
+    android:layout_marginTop="50dp"
+    android:hint="أدخل أسم العميل"
     android:id="@+id/nameuser"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/>
     <Button
-        android:text="تسجيل العميل"
+        android:background="#fff"
+        android:layout_marginTop="70dp"
+        android:text="تسجيل العميل جديد"
         android:id="@+id/login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_width="400dp"
+        android:layout_gravity="center"
+        android:layout_height="70dp"/>
     <Button
+        android:background="#fff"
+        android:visibility="gone"
         android:id="@+id/loginoldUser"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="50dp"/>
     <Button
+        android:background="#fff"
+        android:layout_marginTop="15dp"
         android:text="العملاء المسجلين سابقا"
         android:id="@+id/rigster"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_width="400dp"
+        android:layout_gravity="center"
+        android:layout_height="70dp"/>
 </LinearLayout>

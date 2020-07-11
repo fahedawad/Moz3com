@@ -32,6 +32,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,6 +49,7 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
     Double   total;
     Double sum ,sum2,taxsum04,x,y,taxsum10,taxsum16,z,i,f;
     ArrayList <String> dates;
+    String type;
     public AdapterSuper(Context context,ArrayList<List<itmeList>> list){
         this.context=context;
         this.list=list;
@@ -66,6 +69,8 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
         itemlistrec.setLayoutManager(linearLayoutManager);
         itemlistrec.setItemAnimator(new DefaultItemAnimator());
+        final DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
         addList = new AdapterSubList(context,list.get(position));
         holder.date.setText(list.get(position).get(0).getDate());
         holder.name.setText(list.get(position).get(0).getUsername());
@@ -105,11 +110,12 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
                                     total = Double.parseDouble(snapshot.child("المجموع").getValue(String.class));
                                     sum = sum + total;
                                     holder.type.setText(dataSnapshot.child("طريقة الدفع").getValue(String.class));
-                                    System.out.println(snapshot.child("طريقة الدفع").getValue(String.class));
-                                    if ((snapshot.child("طريقة الدفع").getValue(String.class)+"").equals("نقدي")){
-                                        holder.chash.setChecked(true);
-                                    }else if ((snapshot.child("طريقة الدفع").getValue(String.class)+"").equals("ذمم")){
-                                            holder.thmam.setChecked(true);
+                                    if ((dataSnapshot.child("طريقة الدفع").getValue(String.class)+"").equals("نقدي")){
+                                        holder.thmam.setVisibility(View.GONE);
+                                        holder.chash.setVisibility(View.GONE);
+                                    }else if ((dataSnapshot.child("طريقة الدفع").getValue(String.class)+"").equals("ذمم")){
+                                            holder.thmam.setVisibility(View.GONE);
+                                            holder.chash.setVisibility(View.GONE);
                                     }
                                     Double tax4 = Double.parseDouble(snapshot.child("الضريبه").getValue(String.class));
                                     if (tax4 == 0.04) {
@@ -117,7 +123,7 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
                                         y += taxsum04;
                                         System.out.println(y + "         y");
 
-                                        tax.setText("ضريبة المبيعات %4:" + "\t" + "\t" + y);
+                                        tax.setText("ضريبة المبيعات %4:" + "\t" + "\t" + df.format(y));
                                     } else {
                                         tax.setText("ضريبة المبيعات %4:" + "\t" + "\t" + y);
                                     }
@@ -125,19 +131,19 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
                                     if (tax4 == 0.10) {
                                         taxsum10 = tax4 * total;
                                         x += taxsum10;
-                                        holder.tax10.setText("ضريبة المبيعات %10:" + "\t" + "\t" + x);
+                                        holder.tax10.setText("ضريبة المبيعات %10:" + "\t" + "\t" + df.format(x));
                                     } else {
                                         holder.tax10.setText("ضريبة المبيعات %10:" + "\t" + "\t" + x);
                                     }
                                     if (tax4 == 0.16) {
                                         taxsum16 = tax4 * total;
                                         z += taxsum16;
-                                        holder.tax16.setText("ضريبة المبيعات %16:" + "\t" + "\t" + z);
+                                        holder.tax16.setText("ضريبة المبيعات %16:" + "\t" + "\t" +df.format(z));
                                     } else {
                                         holder.tax16.setText("ضريبة المبيعات %16:" + "\t" + "\t" + z);
                                     }
                                     sum2 = y + x + z + sum;
-                                    holder.totaloftotal.setText("السعر شامل الضريبة:" + "\t" + "\t" + sum2);
+                                    holder.totaloftotal.setText("السعر شامل الضريبة:" + "\t" + "\t" + df.format(sum2));
                                 }
                             }
 
@@ -186,9 +192,11 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId){
                     case R.id.cash :
+                        type ="نقدي";
                         typeCash("نقدي",position);
                         break;
                     case R.id.thmam:
+                        type ="ذمم";
                         Previousmoney(sum2,position);
                         typeCash("ذمم",position);
                         break;
@@ -230,6 +238,13 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
             public void onClick(View view) {
                 Intent intent = new Intent(context , print_invoices.class);
                 intent.putExtra("list", (Serializable) list.get(position));
+                intent.putExtra("username",list.get(position).get(0).getUsername());
+                intent.putExtra("type",holder.type.getText());
+                intent.putExtra("date",list.get(position).get(0).getDate());
+                intent.putExtra("0.04",holder.tax.getText());
+                intent.putExtra("0.10",holder.tax10.getText());
+                intent.putExtra("0.16",holder.tax16.getText());
+                intent.putExtra("total",holder.totaloftotal.getText());
                 context.startActivity(intent);
             }
         });

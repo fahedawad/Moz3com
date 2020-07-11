@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class AdapterSubList extends RecyclerView.Adapter<AdapterSubList.ViewHolder> {
@@ -38,6 +40,8 @@ public class AdapterSubList extends RecyclerView.Adapter<AdapterSubList.ViewHold
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         holder.items.setText(list.get(position).getName());
         holder.pricetxt.setText(list.get(position).getPrice());
+        final DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
         holder.counter.setText(list.get(position).getI()+"");
         holder.total.setText(list.get(position).getTotal()+"");
         holder.wieght.setText(list.get(position).getWieght());
@@ -58,7 +62,7 @@ public class AdapterSubList extends RecyclerView.Adapter<AdapterSubList.ViewHold
                 System.out.println(newtotal);
                 holder.button.setVisibility(View.GONE);
                 FirebaseDatabase.getInstance().getReference("order").child(list.get(position).getUid()).child(list.get(position).getDate())
-                        .child(list.get(position).getName()).child("المجموع").setValue(newtotal+"");
+                        .child(list.get(position).getName()).child("المجموع").setValue(df.format(newtotal)+"");
                 FirebaseDatabase.getInstance().getReference("order").child(list.get(position).getUid()).child(list.get(position).getDate())
                         .child(list.get(position).getName()).child("الوزن").setValue(holder.editText.getText().toString()+"");
             }

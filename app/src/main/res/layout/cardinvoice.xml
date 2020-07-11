@@ -14,24 +14,53 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+<LinearLayout
+    android:id="@+id/tr"
+    android:background="#F2F2F2"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<ImageView
+    android:layout_gravity="center"
+    android:background="@drawable/samer"
+    android:layout_width="250dp"
+    android:layout_height="200dp"></ImageView>
+    <TextView
 
-
+        android:text="مؤسسة سامر ابو عطية للمجمدات"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:textSize="22dp" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_margin="10dp"
+            android:textStyle="bold"
             android:gravity="center"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="22dp"
+            android:layout_margin="10dp"
             android:id="@+id/txtdate"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </TextView>
         <TextView
+            android:textStyle="bold"
             android:layout_margin="10dp"
             android:gravity="center"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="22dp"
             android:id="@+id/nametxt"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -40,6 +69,7 @@
 
 
     </LinearLayout>
+</LinearLayout>
     <TextView
         android:id="@+id/type"
         android:gravity="center"
@@ -54,7 +84,7 @@
         <TextView
             android:background="#AAABAC"
             android:text="صنف"
-            android:textStyle="bold"
+
             android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -91,7 +121,7 @@
         <TextView
             android:background="#AAABAC"
             android:text="المجموع"
-            android:textStyle="bold"
+
             android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"

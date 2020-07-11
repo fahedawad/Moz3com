@@ -10,11 +10,13 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -36,12 +38,14 @@ import java.util.List;
 
 public class print_invoices extends AppCompatActivity {
     RecyclerView recyclerView;
-    LinearLayout printlayout;
+    LinearLayout printlayout,printlayout2,printtotal;
     private static BluetoothSocket btsocket;
     private static OutputStream outputStream;
     AdapterSubList adapterSubList;
     ArrayList<itmeList> arrayList;
     ImageView print ;
+    ImageView logo ;
+        TextView date ,name,type,total,txt10,txt4,txt16;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,24 @@ public class print_invoices extends AppCompatActivity {
         print = findViewById(R.id.imageView2);
         recyclerView = findViewById(R.id.rec);
         recyclerView.setHasFixedSize(true);
+        date =findViewById(R.id.txtdate);
+        name =findViewById(R.id.nametxt);
+        type =findViewById(R.id.t);
+        date.setText(getIntent().getStringExtra("date"));
+        type.setText(getIntent().getStringExtra("type"));
+        name.setText(getIntent().getStringExtra("username"));
+        txt4 = findViewById(R.id.tax);
+        txt10 =findViewById(R.id.tax10);
+        txt16=findViewById(R.id.tax16);
+        total =findViewById(R.id.total);
+        total.setText(getIntent().getStringExtra("total"));
+        txt16.setText(getIntent().getStringExtra("0.16"));
+        txt10.setText(getIntent().getStringExtra("0.10"));
+        txt4.setText(getIntent().getStringExtra("0.04"));
+        printtotal =findViewById(R.id.printtotal);
+        printlayout =findViewById(R.id.printlayout);
+        printlayout2 =findViewById(R.id.printlayout2);
+        logo =findViewById(R.id.printimg);
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -57,7 +79,6 @@ public class print_invoices extends AppCompatActivity {
         arrayList.addAll((Collection<? extends itmeList>) getIntent().getSerializableExtra("list"));
         adapterSubList = new AdapterSubList(print_invoices.this,arrayList);
         recyclerView.setAdapter(adapterSubList);
-
         print.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +86,6 @@ public class print_invoices extends AppCompatActivity {
             }
         });
     }
-
     public void printDemo() {
         if(btsocket == null){
             Intent BTIntent = new Intent(getApplicationContext(), DeviceList.class);
@@ -79,8 +99,6 @@ public class print_invoices extends AppCompatActivity {
                 e.printStackTrace();
             }
             outputStream = opstream;
-
-            //print command
             try {
                 try {
                     Thread.sleep(1000);
@@ -96,18 +114,15 @@ public class print_invoices extends AppCompatActivity {
         }
     }
     public void printPhoto() {
-//        printlayout.setDrawingCacheEnabled(true);
-//        printlayout.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-//                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-//        printlayout.layout(0, 0, printlayout.getMeasuredWidth(), printlayout.getMeasuredHeight());
-//        printlayout.buildDrawingCache(true);
-        //Bitmap b = Bitmap.createBitmap(getBitmapFromView(printlayout));
-//        printlayout.setDrawingCacheEnabled(false);
         try {
+
+            printPhotoFirst3();
+            printPhotoFirst2();
+            printPhotoFirst();
             int size = recyclerView.getAdapter().getItemCount();
-            //Bitmap[][] bitmaps = splitBitmap(b , 1 ,size );
             for (int i = 0 ; i<size ; i++){
-                Bitmap bmp = toGrayscale(getBitmapFromView(recyclerView.getChildAt(i)));
+                System.out.println(i + "                    i");
+                Bitmap bmp = getBitmapFromView(recyclerView.getChildAt(i));
                 Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 100 , false);
                 if(b2!=null){
                     byte[] command = Utils.decodeBitmap(b2);
@@ -118,6 +133,30 @@ public class print_invoices extends AppCompatActivity {
                     Log.e("Print Photo error", "the file isn't exists");
                 }
             }
+
+            printTotal();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //Toast.makeText(MainActivity.this,"PrintTools"+ "the file isn't exists" , Toast.LENGTH_LONG).show();
+            Log.e("PrintTools", "the file isn't exists");
+        }
+
+    }
+    private void printTotal() {
+        try {
+
+            Bitmap bmp = getBitmapFromView(printtotal);
+            Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 100 , false);
+            if(b2!=null){
+                byte[] command = Utils.decodeBitmap(b2);
+                outputStream.write(PrinterCommands.ESC_ALIGN_CENTER);
+                printText(command);
+            }else{
+                //Toast.makeText(MainActivity.this , "Print Photo error"+"the file isn't exists" , Toast.LENGTH_LONG).show();
+                Log.e("Print Photo error", "the file isn't exists");
+            }
+
             //printNewLine();
 
         } catch (Exception e) {
@@ -126,7 +165,72 @@ public class print_invoices extends AppCompatActivity {
             Log.e("PrintTools", "the file isn't exists");
         }
     }
+    private void printPhotoFirst3() {
+        try {
 
+            Bitmap bmp = getBitmapFromView(logo);
+            Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 100 , false);
+            if(b2!=null){
+                byte[] command = Utils.decodeBitmap(b2);
+                outputStream.write(PrinterCommands.ESC_ALIGN_CENTER);
+                printText(command);
+            }else{
+                //Toast.makeText(MainActivity.this , "Print Photo error"+"the file isn't exists" , Toast.LENGTH_LONG).show();
+                Log.e("Print Photo error", "the file isn't exists");
+            }
+
+            //printNewLine();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //Toast.makeText(MainActivity.this,"PrintTools"+ "the file isn't exists" , Toast.LENGTH_LONG).show();
+            Log.e("PrintTools", "the file isn't exists");
+        }
+    }
+    private void printPhotoFirst2() {
+        try {
+
+            Bitmap bmp = getBitmapFromView(printlayout2);
+            Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 50 , false);
+            if(b2!=null){
+                byte[] command = Utils.decodeBitmap(b2);
+                outputStream.write(PrinterCommands.ESC_ALIGN_CENTER);
+                printText(command);
+            }else{
+                //Toast.makeText(MainActivity.this , "Print Photo error"+"the file isn't exists" , Toast.LENGTH_LONG).show();
+                Log.e("Print Photo error", "the file isn't exists");
+            }
+
+            //printNewLine();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //Toast.makeText(MainActivity.this,"PrintTools"+ "the file isn't exists" , Toast.LENGTH_LONG).show();
+            Log.e("PrintTools", "the file isn't exists");
+        }
+    }
+    private void printPhotoFirst() {
+        try {
+
+            Bitmap bmp = getBitmapFromView(printlayout);
+            Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 100 , false);
+            if(b2!=null){
+                byte[] command = Utils.decodeBitmap(b2);
+                outputStream.write(PrinterCommands.ESC_ALIGN_CENTER);
+                printText(command);
+            }else{
+                //Toast.makeText(MainActivity.this , "Print Photo error"+"the file isn't exists" , Toast.LENGTH_LONG).show();
+                Log.e("Print Photo error", "the file isn't exists");
+            }
+
+            //printNewLine();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //Toast.makeText(MainActivity.this,"PrintTools"+ "the file isn't exists" , Toast.LENGTH_LONG).show();
+            Log.e("PrintTools", "the file isn't exists");
+        }
+    }
     private void printNewLine() {
         try {
             outputStream.write(PrinterCommands.FEED_LINE);

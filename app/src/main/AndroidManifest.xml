@@ -15,8 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".print_invoices"></activity>
+        <activity android:name=".ListScreen"></activity>
         <activity android:name=".RigesterUser" />
-        <activity android:name=".ListScreen" />
         <activity android:name=".Auth" />
         <activity android:name=".Jard" />
         <activity android:name=".ForPrint.DeviceList" />

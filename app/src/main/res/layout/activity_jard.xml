@@ -19,19 +19,61 @@
             android:orientation="vertical">
 
             <Button
+
                 android:id="@+id/getdate"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:background="#3B3434"
+                android:layout_height="70dp"
+                android:layout_margin="10dp"
+                android:textColor="#fff"
+                android:textStyle="bold"
                 android:text="أختار التاريخ" />
 
             <Button
+                android:background="#3B3434"
+                android:layout_height="70dp"
+                android:layout_margin="10dp"
+                android:textColor="#fff"
+                android:textStyle="bold"
                 android:id="@+id/okpushdata"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="جلب البياناتخ" />
 
+                android:text="جلب البيانات" />
+        <LinearLayout
+            android:background="#F2F2F2"
+            android:id="@+id/printlayout"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:background="@drawable/samer"
+                android:layout_gravity="center"
+                android:layout_width="252dp"
+                android:layout_height="200dp"></ImageView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="مؤسسة سامر ابو عطية للمجمدات"
+                android:textColor="#000"
+                android:textSize="22dp"
+                />
+            <TextView
+                android:id="@+id/fahedsate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textColor="#000"
+                android:textSize="18dp"
+                />
             <LinearLayout
-                android:id="@+id/printlayout"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -48,7 +90,7 @@
                     android:text="صنف"
                     android:textColor="#000"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                     />
 
                 <TextView
                     android:id="@+id/price"
@@ -103,7 +145,7 @@
                         android:text="العدد المباع"
                         android:textColor="#000"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        />
 
                     <TextView
                         android:id="@+id/pases"
@@ -154,7 +196,7 @@
                     android:textSize="18sp" />
 
             </LinearLayout>
-
+        </LinearLayout>
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -162,6 +204,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/jard"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </androidx.core.widget.NestedScrollView>

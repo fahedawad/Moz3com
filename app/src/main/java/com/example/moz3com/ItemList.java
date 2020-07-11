@@ -42,7 +42,7 @@ public class ItemList extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
         Toast.makeText(this, "heello", Toast.LENGTH_SHORT).show();
-        GridLayoutManager glm = new GridLayoutManager(this,2);
+        GridLayoutManager glm = new GridLayoutManager(this,3);
         recyclerView.setLayoutManager(glm);
         data =new ArrayList<>();
         FirebaseDatabase.getInstance().getReference("item")
