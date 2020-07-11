@@ -38,14 +38,14 @@ import java.util.List;
 
 public class print_invoices extends AppCompatActivity {
     RecyclerView recyclerView;
-    LinearLayout printlayout,printlayout2,printtotal;
+    LinearLayout printlayout,printlayout2,printtotal,printtotal2,zzz;
     private static BluetoothSocket btsocket;
     private static OutputStream outputStream;
     AdapterSubList adapterSubList;
     ArrayList<itmeList> arrayList;
     ImageView print ;
     ImageView logo ;
-        TextView date ,name,type,total,txt10,txt4,txt16;
+        TextView date ,name,type,total,txt10,txt4,txt16,title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +64,13 @@ public class print_invoices extends AppCompatActivity {
         txt10 =findViewById(R.id.tax10);
         txt16=findViewById(R.id.tax16);
         total =findViewById(R.id.total);
+        title =findViewById(R.id.titlename);
+        zzz =findViewById(R.id.zzzz);
         total.setText(getIntent().getStringExtra("total"));
         txt16.setText(getIntent().getStringExtra("0.16"));
         txt10.setText(getIntent().getStringExtra("0.10"));
         txt4.setText(getIntent().getStringExtra("0.04"));
+        printtotal2 =findViewById(R.id.printtotal2);
         printtotal =findViewById(R.id.printtotal);
         printlayout =findViewById(R.id.printlayout);
         printlayout2 =findViewById(R.id.printlayout2);
@@ -117,7 +120,9 @@ public class print_invoices extends AppCompatActivity {
         try {
 
             printPhotoFirst3();
+            printTitle();
             printPhotoFirst2();
+            printType();
             printPhotoFirst();
             int size = recyclerView.getAdapter().getItemCount();
             for (int i = 0 ; i<size ; i++){
@@ -135,6 +140,8 @@ public class print_invoices extends AppCompatActivity {
             }
 
             printTotal();
+            Printtota2l();
+            PrintFinal();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -142,6 +149,94 @@ public class print_invoices extends AppCompatActivity {
             Log.e("PrintTools", "the file isn't exists");
         }
 
+    }
+    private void printType() {
+        try {
+
+            Bitmap bmp = getBitmapFromView(type);
+            Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 40 , false);
+            if(b2!=null){
+                byte[] command = Utils.decodeBitmap(b2);
+                outputStream.write(PrinterCommands.ESC_ALIGN_CENTER);
+                printText(command);
+            }else{
+                //Toast.makeText(MainActivity.this , "Print Photo error"+"the file isn't exists" , Toast.LENGTH_LONG).show();
+                Log.e("Print Photo error", "the file isn't exists");
+            }
+
+            //printNewLine();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //Toast.makeText(MainActivity.this,"PrintTools"+ "the file isn't exists" , Toast.LENGTH_LONG).show();
+            Log.e("PrintTools", "the file isn't exists");
+        }
+    }
+    private void printTitle() {
+        try {
+
+            Bitmap bmp = getBitmapFromView(title);
+            Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 40 , false);
+            if(b2!=null){
+                byte[] command = Utils.decodeBitmap(b2);
+                outputStream.write(PrinterCommands.ESC_ALIGN_CENTER);
+                printText(command);
+            }else{
+                //Toast.makeText(MainActivity.this , "Print Photo error"+"the file isn't exists" , Toast.LENGTH_LONG).show();
+                Log.e("Print Photo error", "the file isn't exists");
+            }
+
+            //printNewLine();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //Toast.makeText(MainActivity.this,"PrintTools"+ "the file isn't exists" , Toast.LENGTH_LONG).show();
+            Log.e("PrintTools", "the file isn't exists");
+        }
+    }
+    private void Printtota2l() {
+        try {
+
+            Bitmap bmp = getBitmapFromView(printtotal2);
+            Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 40 , false);
+            if(b2!=null){
+                byte[] command = Utils.decodeBitmap(b2);
+                outputStream.write(PrinterCommands.ESC_ALIGN_CENTER);
+                printText(command);
+            }else{
+                //Toast.makeText(MainActivity.this , "Print Photo error"+"the file isn't exists" , Toast.LENGTH_LONG).show();
+                Log.e("Print Photo error", "the file isn't exists");
+            }
+
+            //printNewLine();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //Toast.makeText(MainActivity.this,"PrintTools"+ "the file isn't exists" , Toast.LENGTH_LONG).show();
+            Log.e("PrintTools", "the file isn't exists");
+        }
+    }
+    private void PrintFinal() {
+        try {
+
+            Bitmap bmp = getBitmapFromView(zzz);
+            Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 40 , false);
+            if(b2!=null){
+                byte[] command = Utils.decodeBitmap(b2);
+                outputStream.write(PrinterCommands.ESC_ALIGN_CENTER);
+                printText(command);
+            }else{
+                //Toast.makeText(MainActivity.this , "Print Photo error"+"the file isn't exists" , Toast.LENGTH_LONG).show();
+                Log.e("Print Photo error", "the file isn't exists");
+            }
+
+            //printNewLine();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //Toast.makeText(MainActivity.this,"PrintTools"+ "the file isn't exists" , Toast.LENGTH_LONG).show();
+            Log.e("PrintTools", "the file isn't exists");
+        }
     }
     private void printTotal() {
         try {
@@ -169,7 +264,7 @@ public class print_invoices extends AppCompatActivity {
         try {
 
             Bitmap bmp = getBitmapFromView(logo);
-            Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 100 , false);
+            Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 150 , false);
             if(b2!=null){
                 byte[] command = Utils.decodeBitmap(b2);
                 outputStream.write(PrinterCommands.ESC_ALIGN_CENTER);
@@ -213,7 +308,7 @@ public class print_invoices extends AppCompatActivity {
         try {
 
             Bitmap bmp = getBitmapFromView(printlayout);
-            Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 100 , false);
+            Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 50 , false);
             if(b2!=null){
                 byte[] command = Utils.decodeBitmap(b2);
                 outputStream.write(PrinterCommands.ESC_ALIGN_CENTER);

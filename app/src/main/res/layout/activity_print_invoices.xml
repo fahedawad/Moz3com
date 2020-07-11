@@ -16,15 +16,8 @@
         android:background="@drawable/samer"
         android:layout_width="250dp"
         android:layout_height="200dp"></ImageView>
-    <LinearLayout
-        android:id="@+id/printlayout2"
-        android:background="#F2F2F2"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <TextView
-
+            android:id="@+id/titlename"
             android:text="مؤسسة سامر ابو عطية للمجمدات"
             android:textStyle="bold"
             android:layout_width="match_parent"
@@ -35,6 +28,13 @@
             android:padding="5dp"
             android:textColor="#000"
             android:textSize="22dp" />
+    <LinearLayout
+        android:id="@+id/printlayout2"
+        android:background="#F2F2F2"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -67,7 +67,11 @@
 
 
         </LinearLayout>
+
+
+    </LinearLayout>
         <TextView
+
             android:textStyle="bold"
             android:layout_margin="10dp"
             android:gravity="center"
@@ -77,9 +81,6 @@
             android:id="@+id/t"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-
-    </LinearLayout>
-
     <LinearLayout
         android:id="@+id/printlayout"
         android:orientation="horizontal"
@@ -160,27 +161,58 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <TextView
+        android:layout_margin="15dp"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:textSize="18dp"
         android:id="@+id/tax"
         android:text="ضريبة المبيعات"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <TextView
+        android:layout_margin="15dp"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:textSize="18dp"
         android:id="@+id/tax10"
         android:text="ضريبة المبيعات"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/tax16"
-        android:text="ضريبة المبيعات"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
-    <TextView
-        android:id="@+id/total"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="المجموع" />
 </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/printtotal2">
+            <TextView
+                android:layout_margin="15dp"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:id="@+id/tax16"
+                android:text="ضريبة المبيعات"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/zzzz">
+            <TextView
+                android:layout_margin="15dp"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:layout_marginBottom="50dp"
+                android:id="@+id/total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="المجموع" />
+        </LinearLayout>
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
