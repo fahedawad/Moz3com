@@ -167,22 +167,38 @@ public class Jard extends AppCompatActivity {
             }
         }
     }
+//    public void printPhoto2() {
+//        try {
+//            //printPhotoFirst();
+//            int size = recyclerView.getAdapter().getItemCount();
+//            recyclerView.smoothScrollToPosition(0);
+//            LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+//            for (int i = 0 ; i<size ; i++){
+//                System.out.println(i + "                    i");
+//                Bitmap bmp = getBitmapFromView(recyclerView.getChildAt(i));
+//                Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 100 , false);
+//                if(b2!=null){
+//                    byte[] command = Utils.decodeBitmap(b2);
+//                    System.out.println(command + "          command");
+//                    //outputStream.write(PrinterCommands.ESC_ALIGN_CENTER);
+//                    //printText(command);
+//                }else{
+//                    //Toast.makeText(MainActivity.this , "Print Photo error"+"the file isn't exists" , Toast.LENGTH_LONG).show();
+//                    Log.e("Print Photo error", "the file isn't exists");
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            //Toast.makeText(MainActivity.this,"PrintTools"+ "the file isn't exists" , Toast.LENGTH_LONG).show();
+//            Log.e("PrintTools", "the file isn't exists");
+//        }
+//    }
+
     public void printPhoto() {
-//        printlayout.setDrawingCacheEnabled(true);
-//        printlayout.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-//                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-//        printlayout.layout(0, 0, printlayout.getMeasuredWidth(), printlayout.getMeasuredHeight());
-//        printlayout.buildDrawingCache(true);
-        //Bitmap b = Bitmap.createBitmap(getBitmapFromView(printlayout));
-//        printlayout.setDrawingCacheEnabled(false);
         try {
             //printPhotoFirst();
             int size = recyclerView.getAdapter().getItemCount();
-            recyclerView.smoothScrollToPosition(0);
-            LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-            int size2 = linearLayoutManager.getChildCount() ;
-            for (int j = 0 ; j<size/size2 ;  j++){
-                for (int i = 0 ; i<size2 ; i++){
+                for (int i = 0 ; i<size ; i++){
                     System.out.println(i + "                    i");
                     Bitmap bmp = getBitmapFromView(recyclerView.getChildAt(i));
                     Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 100 , false);
@@ -196,12 +212,7 @@ public class Jard extends AppCompatActivity {
                     }
 
                 }
-                LinearLayoutManager linearLayoutManager2 = (LinearLayoutManager) recyclerView.getLayoutManager();
-                int size22 = linearLayoutManager2.getChildCount() ;
-                recyclerView.smoothScrollToPosition(size22*2);
-            }
 
-            //printNewLine();
 
         } catch (Exception e) {
             e.printStackTrace();
