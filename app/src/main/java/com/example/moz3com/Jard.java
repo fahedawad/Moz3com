@@ -213,6 +213,33 @@ public class Jard extends AppCompatActivity {
         }
     }
 
+    public void printPhoto2() {
+        try {
+            printPhotoFirst();
+            int size = recyclerView.getAdapter().getItemCount();
+            for (int i = 0 ; i<size ; i++){
+                System.out.println(i + "                    i");
+                Bitmap bmp = getBitmapFromView(recyclerView.getChildAt(i));
+                Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 100 , false);
+                if(b2!=null){
+                    byte[] command = Utils.decodeBitmap(b2);
+                    outputStream.write(PrinterCommands.ESC_ALIGN_CENTER);
+                    printText(command);
+                }else{
+                    //Toast.makeText(MainActivity.this , "Print Photo error"+"the file isn't exists" , Toast.LENGTH_LONG).show();
+                    Log.e("Print Photo error", "the file isn't exists");
+                }
+
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //Toast.makeText(MainActivity.this,"PrintTools"+ "the file isn't exists" , Toast.LENGTH_LONG).show();
+            Log.e("PrintTools", "the file isn't exists");
+        }
+    }
+
     private void printPhotoFirst() {
         try {
 
@@ -255,20 +282,6 @@ public class Jard extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    public static Bitmap toGrayscale(Bitmap srcImage) {
-        Bitmap bmpGrayscale = Bitmap.createBitmap(srcImage.getWidth(),
-                srcImage.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bmpGrayscale);
-        Paint paint = new Paint();
-        ColorMatrix cm = new ColorMatrix();
-        cm.setSaturation(0);
-        paint.setColorFilter(new ColorMatrixColorFilter(cm));
-        canvas.drawBitmap(srcImage, 0, 0, paint);
-        return bmpGrayscale;
-    }
-
-
-
     public static Bitmap getBitmapFromView(View view) {
         Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),Bitmap.Config.ARGB_8888);
         //Bind a canvas to it
@@ -287,24 +300,6 @@ public class Jard extends AppCompatActivity {
         return returnedBitmap;
     }
 
-    public Bitmap[][] splitBitmap(Bitmap bitmap, int xCount, int yCount) {
-        // Allocate a two dimensional array to hold the individual images.
-        Bitmap[][] bitmaps = new Bitmap[xCount][yCount];
-        int width, height;
-        // Divide the original bitmap width by the desired vertical column count
-        width = bitmap.getWidth() / xCount;
-        // Divide the original bitmap height by the desired horizontal row count
-        height = bitmap.getHeight() / yCount;
-        // Loop the array and create bitmaps for each coordinate
-        for(int x = 0; x < xCount; ++x) {
-            for(int y = 0; y < yCount; ++y) {
-                // Create the sliced bitmap
-                bitmaps[x][y] = Bitmap.createBitmap(bitmap, x * width, y * height, width, height);
-            }
-        }
-        // Return the array
-        return bitmaps;
-    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -316,7 +311,6 @@ public class Jard extends AppCompatActivity {
 
         } catch (Exception e) {
             e.printStackTrace();
-            //Toast.makeText(MainActivity.this, "on activity result" , Toast.LENGTH_LONG).show();
         }
     }
 }

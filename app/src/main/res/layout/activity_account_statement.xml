@@ -1,98 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".AccountStatement">
-    <TextView
-        android:text="السحوبات"
-        android:textColor="#000"
-        android:textSize="28dp"
-        android:layout_margin="15dp"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
     <LinearLayout
+        android:id="@+id/header1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
+
         <TextView
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="التاريخ"
-            android:textColor="#000"
-            android:textSize="18dp"
-            android:layout_margin="15dp"
-            android:textStyle="bold"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="القيمة"
-            android:textColor="#000"
-            android:textSize="18dp"
+            android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:textStyle="bold"
+            android:text="السحوبات"
+            android:textColor="#000"
+            android:textSize="28dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="التاريخ"
+                android:textColor="#000"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="القيمة"
+                android:textColor="#000"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:id="@+id/Account"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </androidx.core.widget.NestedScrollView>
+
     <TextView
         android:id="@+id/totalacc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <TextView
-        android:text="الدفعات"
-        android:textColor="#000"
-        android:textSize="28dp"
-        android:layout_margin="15dp"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+
     <LinearLayout
+        android:id="@+id/header2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="التاريخ"
-            android:textColor="#000"
-            android:textSize="18dp"
-            android:layout_margin="15dp"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        android:orientation="vertical">
 
         <TextView
-            android:layout_weight="1"
-            android:text="طريقة الدفع"
-            android:textColor="#000"
-            android:textSize="18dp"
-            android:layout_margin="15dp"
-            android:textStyle="bold"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="القيمة"
-            android:textColor="#000"
-            android:textSize="18dp"
+            android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:textStyle="bold"
+            android:text="الدفعات"
+            android:textColor="#000"
+            android:textSize="28dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="التاريخ"
+                android:textColor="#000"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:layout_weight="1"
+                android:text="طريقة الدفع"
+                android:textColor="#000"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="القيمة"
+                android:textColor="#000"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/hala"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hala"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.core.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/totalhala"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/fulltotal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"/>
+
+    <ImageView
+        android:id="@+id/print"
+        android:layout_width="match_parent"
+        android:layout_height="109dp"
+        app:srcCompat="@drawable/ic_baseline_print_24" />
 </LinearLayout>
+</ScrollView>
