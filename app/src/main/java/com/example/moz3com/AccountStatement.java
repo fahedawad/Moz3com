@@ -271,9 +271,6 @@ public class AccountStatement extends AppCompatActivity  {
                 //Toast.makeText(MainActivity.this , "Print Photo error"+"the file isn't exists" , Toast.LENGTH_LONG).show();
                 Log.e("Print Photo error", "the file isn't exists");
             }
-
-            //printNewLine();
-
         } catch (Exception e) {
             e.printStackTrace();
             //Toast.makeText(MainActivity.this,"PrintTools"+ "the file isn't exists" , Toast.LENGTH_LONG).show();

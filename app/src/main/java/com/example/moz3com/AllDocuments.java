@@ -35,18 +35,19 @@ public class AllDocuments extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference("Catch Receipt").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot:dataSnapshot.getChildren()){
-                        for (DataSnapshot s1:snapshot.getChildren()){
-                            if (snapshot.child("طرقة الدقع").getValue(String.class).equals("شيك")){
-                                docs.add(new Doc(s1.child("الاسم").getValue(String.class),s1.child("التاريخ").getValue(String.class),
-                                        s1.child("المبلغ").getValue(String.class),s1.child("كتابة").getValue(String.class),s1.child("رقم السيك").getValue(String.class),
-                                        s1.child("البنك").getValue(String.class),s1.child("مقابل").getValue(String.class),s1.child("طرقة الدقع").getValue(String.class)));
+                    for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
+                        for (DataSnapshot s1 : snapshot.getChildren()) {
+                                if (s1.child("طرقة الدقع").getValue(String.class).equals("شيك")) {
+                                    docs.add(new Doc(s1.child("الاسم").getValue(String.class), s1.child("التاريخ").getValue(String.class),
+                                            s1.child("المبلغ").getValue(String.class), s1.child("كتابة").getValue(String.class), s1.child("رقم السيك").getValue(String.class),
+                                            s1.child("البنك").getValue(String.class), s1.child("مقابل").getValue(String.class), s1.child("طرقة الدقع").getValue(String.class)));
+                                }
+                            if (s1.child("طرقة الدقع").getValue(String.class).equals("نقد")) {
+                                docs.add(new Doc(s1.child("الاسم").getValue(String.class), s1.child("التاريخ").getValue(String.class),
+                                        s1.child("المبلغ").getValue(String.class), s1.child("كتابة").getValue(String.class), "-----------", "-------------", s1.child("مقابل").getValue(String.class), s1.child("طرقة الدقع").getValue(String.class)));
                             }
-                            if (snapshot.child("طرقة الدقع").getValue(String.class).equals("نقد")){
-                                docs.add(new Doc(s1.child("الاسم").getValue(String.class),s1.child("التاريخ").getValue(String.class),
-                                        s1.child("المبلغ").getValue(String.class),s1.child("كتابة").getValue(String.class),"-----------","-------------",s1.child("مقابل").getValue(String.class),s1.child("طرقة الدقع").getValue(String.class)));
-                            }
-                        }
+
+                    }
 
                     }
                     adapterDoc =new AdapterDoc(docs,AllDocuments.this);
