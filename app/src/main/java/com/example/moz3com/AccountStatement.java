@@ -228,6 +228,8 @@ public class AccountStatement extends AppCompatActivity  {
             //Toast.makeText(MainActivity.this,"PrintTools"+ "the file isn't exists" , Toast.LENGTH_LONG).show();
             Log.e("PrintTools", "the file isn't exists");
         }
+
+        printPhoto2();
     }
 
     public void printPhoto2() {
