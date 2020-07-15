@@ -51,7 +51,7 @@ public class Document extends AppCompatActivity {
     Double f;
     private static BluetoothSocket btsocket;
     private static OutputStream outputStream;
-    LinearLayout header1 , header2 , header3 , linearLayout;
+    LinearLayout header1 , header2 , header3 , linearLayout,header4,sheak;
     ImageView print;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +60,8 @@ public class Document extends AppCompatActivity {
         header1 = findViewById(R.id.header1);
         header2 = findViewById(R.id.header2);
         header3 = findViewById(R.id.header3);
+        header4 = findViewById(R.id.header4);
+        sheak = findViewById(R.id.shak);
         print = findViewById(R.id.print);
         linearLayout = findViewById(R.id.shak);
         name =findViewById(R.id.namecust);
@@ -236,6 +238,8 @@ public class Document extends AppCompatActivity {
             Log.e("PrintTools", "the file isn't exists");
         }
         printPhotoFirst2(header2);
+        printPhotoFirst2(header4);
+        printPhotoFirst2(sheak);
         printPhotoFirst2(header3);
     }
 
