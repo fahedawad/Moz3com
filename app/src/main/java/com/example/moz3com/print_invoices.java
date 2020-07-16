@@ -13,12 +13,15 @@ import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.print.PrintHelper;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -85,7 +88,10 @@ public class print_invoices extends AppCompatActivity {
         print.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                printDemo();
+                //printDemo();
+                Bitmap bmp = getBitmapFromView(logo);
+                Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 100 , false);
+                printImage(b2);
             }
         });
     }
@@ -406,6 +412,28 @@ public class print_invoices extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
             //Toast.makeText(MainActivity.this, "on activity result" , Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void printImage(Bitmap bitmap)
+    {
+        if (PrintHelper.systemSupportsPrint())
+        {
+            // use Android Support Library's PrintHelper to print image
+            PrintHelper printHelper = new PrintHelper(this);
+
+            // fit image in page bounds and print the image
+            printHelper.setScaleMode(PrintHelper.SCALE_MODE_FIT);
+            printHelper.printBitmap("Doodlz Image", bitmap);
+        }
+        else
+        {
+            // display message indicating that system does not allow printing
+            Toast message = Toast.makeText(this,
+                    "error", Toast.LENGTH_SHORT);
+            message.setGravity(Gravity.CENTER, message.getXOffset() / 2,
+                    message.getYOffset() / 2);
+            message.show();
         }
     }
 }
