@@ -19,12 +19,12 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:id="@+id/printimg"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="250dp"
                 android:layout_gravity="center"
                 android:background="@drawable/samer"></ImageView>
@@ -33,7 +33,7 @@
 
         <TextView
             android:id="@+id/titlename"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
@@ -58,7 +58,7 @@
 
                 <TextView
                     android:id="@+id/txtdate"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
@@ -70,7 +70,7 @@
 
                 <TextView
                     android:id="@+id/nametxt"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
@@ -181,13 +181,13 @@
 
         <LinearLayout
             android:id="@+id/printtotal"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tax"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:text="ضريبة المبيعات"
@@ -200,12 +200,12 @@
         </LinearLayout>
 <LinearLayout
     android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/hhhhhhhh">
     <TextView
         android:id="@+id/tax10"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:text="ضريبة المبيعات"
@@ -215,13 +215,13 @@
 </LinearLayout>
         <LinearLayout
             android:id="@+id/printtotal2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tax16"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:text="ضريبة المبيعات"
@@ -234,7 +234,7 @@
 
         <LinearLayout
             android:id="@+id/zzzz"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 

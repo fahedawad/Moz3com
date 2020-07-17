@@ -114,19 +114,19 @@ public class print_invoices extends AppCompatActivity {
     }
     public void printPhoto() {
         try {
-            printDataLogo(logo);
-            printData(title);
-            printData(printlayout2);
-            printData(type);
-            printData(printlayout);
+            printDataLogo(logo,550,250);
+            printData(title,550,100);
+            printData(printlayout2,550,100);
+            printData(type,550,75);
+            printData(printlayout,550,100);
             int size = recyclerView.getAdapter().getItemCount();
             for (int i = 0 ; i<size ; i++){
-                printData(recyclerView.getChildAt(i));
+                printData(recyclerView.getChildAt(i),550,100);
             }
-            printData(printtotal);
-            printData(hhhhhhh);
-            printData(printtotal2);
-            printData(zzz);
+            printData(printtotal,550,50);
+            printData(hhhhhhh,550,50);
+            printData(printtotal2,550,50);
+            printData(zzz,550,50);
         } catch (Exception e) {
             e.printStackTrace();
             //Toast.makeText(MainActivity.this,"PrintTools"+ "the file isn't exists" , Toast.LENGTH_LONG).show();
@@ -238,10 +238,10 @@ public class print_invoices extends AppCompatActivity {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    } void printDataLogo(View view) throws  IOException{
+    } void printDataLogo(View view,int w,int h) throws  IOException{
         try{
             Bitmap bmp = getBitmapFromView(view);
-            Bitmap b2 = Bitmap.createScaledBitmap(bmp , view.getWidth(), view.getHeight() , false);
+            Bitmap b2 = Bitmap.createScaledBitmap(bmp , w, h , false);
             if(b2!=null){
                 byte[] command = Utils.decodeBitmap(b2);
                 outputStream.write(PrinterCommands.ESC_ALIGN_RIGHT);
@@ -255,10 +255,10 @@ public class print_invoices extends AppCompatActivity {
         }
     }
     // Printing Text to Bluetooth Printer //
-    void printData(View view) throws  IOException{
+    void printData(View view,int w,int h) throws  IOException{
         try{
             Bitmap bmp = getBitmapFromView(view);
-            Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 70 , false);
+            Bitmap b2 = Bitmap.createScaledBitmap(bmp , w, h , false);
             if(b2!=null){
                 byte[] command = Utils.decodeBitmap(b2);
                 outputStream.write(PrinterCommands.ESC_ALIGN_CENTER);
