@@ -32,7 +32,7 @@ public class AdapterRetuenData extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.carditem,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item,parent,false);
         return new ViewHolder(view);
     }
 

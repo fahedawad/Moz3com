@@ -27,8 +27,6 @@ import com.example.moz3com.PackageAdapter.Adapter;
 import com.example.moz3com.PackageAdapter.OrdarAdapter;
 import com.example.moz3com.PackageData.DataItem;
 import com.example.moz3com.PackageData.OrdarData;
-import com.example.moz3com.ViewPagerClass.Pager;
-import com.example.moz3com.ViewPagerClass.ViewPag;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -50,26 +48,22 @@ import java.util.Timer;
 public class ListScreen extends AppCompatActivity {
 RecyclerView recyclerView;
 Adapter adapter;
-List<DataItem>dataItems;
-List<DataItem>search;
-String numitem;
+List<DataItem> dataItems;
+List<DataItem> search;
 AutoCompleteTextView completeTextView;
-List<String>strings;
-String [] datanames;
+List<String> strings;
+String[] datanames;
 Double finalprice;
-public static FloatingActionButton order;
+public static FloatingActionButton order,home;
 private long backPressed;
 SharedPreference sharedPreference = new SharedPreference();
 SimpleDateFormat format;
-List<OrdarData>ordarData;
+List<OrdarData> ordarData;
 Date date;
-ArrayList<HashMap<String,Object>>arrayList;
+ArrayList<HashMap<String, Object>> arrayList;
 String datetxt;
     String tax;
 ProgressDialog progressDialog;
-    ViewPager viewPager;
-    ViewPag pag;
-    List<Pager>pagers;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,11 +88,7 @@ ProgressDialog progressDialog;
         format =new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
         date =new Date();
         datetxt =format.format(date);
-        viewPager =findViewById(R.id.viewPager);
-        pagers =new ArrayList<>();
-        pag =new ViewPag(this,pagers);
-        viewPager.setAdapter(pag);
-        LinearLayoutManager l =new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager l =new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         GridLayoutManager gridLayoutManager =new GridLayoutManager(this,3);
         recyclerView.setLayoutManager(gridLayoutManager);
         dataItems =new ArrayList<>();
@@ -108,6 +98,7 @@ ProgressDialog progressDialog;
         sharedPreference.removeallFavorite(ListScreen.this);
         final DecimalFormat df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.CEILING);
+
         order.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -167,6 +158,7 @@ ProgressDialog progressDialog;
                                                    hashMap.put("المجموع", newtotal + "");
                                                }
                                                hashMap.put("الضريبه", ordarData.get(finalI).getTax());
+                                               //System.out.println(ordarData.get(finalI).getTax()+"          Tax");
                                                hashMap.put("نوع البيع", ordarData.get(finalI).getType());
                                                hashMap.put("سعر الشراء", purchasingprice + "");
                                                reference.updateChildren(hashMap, new DatabaseReference.CompletionListener() {
@@ -175,7 +167,7 @@ ProgressDialog progressDialog;
                                                        progressDialog.dismiss();
                                                        adapter.notifyDataSetChanged();
                                                        recyclerView.setAdapter(adapter);
-
+                                                       order.setVisibility(View.GONE);
                                                        sharedPreference.removeallFavorite(ListScreen.this);
                                                        FirebaseDatabase.getInstance().getReference("ordernotifi").child("orderauth")
                                                                .setValue(FirebaseAuth.getInstance().getUid() + new Date() + "");
@@ -321,56 +313,7 @@ ProgressDialog progressDialog;
                 });
             }
         });
-            Timer timer =new Timer();
-            timer.scheduleAtFixedRate(new ListScreen.TimewTask(),1500,2000);
     }
-    public class TimewTask extends java.util.TimerTask {
-        @Override
-        public void run() {
-            ListScreen.this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    switch (viewPager.getCurrentItem()) {
-                        case 0:
-                            viewPager.setCurrentItem(1);
-                            break;
-                        case 1:
-                            viewPager.setCurrentItem(0);
-                            break;
-                    }
-                }
-            });
-        }
-    }
-//    private void SearchData(String itme) {
-//        FirebaseDatabase.getInstance().getReference("item").child(itme)
-//                .addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                            String img = dataSnapshot.child("صورة المنتج").getValue(String.class);
-//                            String type = dataSnapshot.child("طريقة البيع").getValue(String.class);
-//                            String price = dataSnapshot.child("سعر البيع").getValue(String.class);
-//                            String tax = dataSnapshot.child("الضريبة").getValue(String.class);
-//                            System.out.println(tax+"        tax"   );
-////                           Double parseInt =Double.parseDouble(price);
-////                           Double taxint =Double.parseDouble(tax);
-////                           Double finalprice =(parseInt*taxint)+parseInt;
-//                            if (type.equals("فرط")){
-//                                numitem =dataSnapshot.child("عدد الحبات داخل الكرتونه").getValue(String.class);
-//                                search.add(new DataItem("أسم المنتج:"+"\t"+dataSnapshot.getKey(),"طريقة البيع:"+"\t"+type+"\t"+"عدد الحبات في الكرتونة ,"+numitem,"السعر:"+"\t"+price,img));
-//                            }
-//                            else { search.add(new DataItem("أسم المنتج:"+"\t"+dataSnapshot.getKey(),"طريقة البيع:"+"\t"+type+"\t","السعر:"+"\t"+price,img));}
-//                            recyclerView.setAdapter(adapter);
-//                        }
-//
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
-//    }
-
     public void getData(){
         dataItems.clear();
         recyclerView.setAdapter(null);
@@ -386,19 +329,17 @@ ProgressDialog progressDialog;
                             String price = s1.child("سعر البيع").getValue(String.class);
                             try {
                                 tax = s1.child("الضريبة").getValue(String.class);
-                                Double parseInt =Double.parseDouble(price);
-                                Double taxint =Double.parseDouble(tax);
+                                Double parseInt = Double.parseDouble(price);
+                                Double taxint = Double.parseDouble(tax);
                                 finalprice =(parseInt*taxint)+parseInt;
-                            }catch (NullPointerException e){
-
-                            }
+                            }catch (NullPointerException ignored){}
                             dataItems.add(new DataItem(s1.getKey(),type,price,img,"",tax));
                             adapter =new Adapter(dataItems,ListScreen.this);
                             recyclerView.setAdapter(adapter);
                         }
                         datanames = new String[strings.size()];
                         datanames = strings.toArray(datanames);
-                        ArrayAdapter<String>adapter =new ArrayAdapter<String>(ListScreen.this,android.R.layout.simple_dropdown_item_1line,datanames);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(ListScreen.this, android.R.layout.simple_dropdown_item_1line, datanames);
                         completeTextView.setThreshold(1);
                         completeTextView.setAdapter(adapter);
                     }
@@ -409,11 +350,6 @@ ProgressDialog progressDialog;
                     }
                 });
     }
-    public void upload_jard (final HashMap<String, Object> hashMap , String name){
-        format =new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
-        date =new Date();
-        datetxt =format.format(date);
-    }
     @Override
     public void onBackPressed() {
         if (backPressed +2000 > System.currentTimeMillis()){
@@ -423,6 +359,6 @@ ProgressDialog progressDialog;
         else {
             Toast.makeText(this, "أذا كنت تريد الخروج أضغط مره اخرى", Toast.LENGTH_SHORT).show();
         }
-        backPressed =System.currentTimeMillis();
+        backPressed = System.currentTimeMillis();
     }
 }

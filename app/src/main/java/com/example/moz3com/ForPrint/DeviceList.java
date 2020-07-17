@@ -244,9 +244,14 @@ public class DeviceList extends ListActivity {
                             .getUuid();
                     mbtSocket = btDevices.getItem(position)
                             .createRfcommSocketToServiceRecord(uuid);
-
-                    mbtSocket.connect();
+                    //mbtSocket = btDevices.getItem(position).createInsecureRfcommSocketToServiceRecord(MY_UUID);
+                    if(!mbtSocket.isConnected()){
+                    mbtSocket.connect();}
+                    else {
+                        System.out.println("is connect");
+                    }
                 } catch (IOException ex) {
+                    ex.printStackTrace();
                     runOnUiThread(socketErrorRunnable);
                     try {
                         mbtSocket.close();

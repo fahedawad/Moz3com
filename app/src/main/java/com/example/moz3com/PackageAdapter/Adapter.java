@@ -11,10 +11,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.moz3com.ListScreen;
 import com.example.moz3com.PackageData.DataItem;
 import com.example.moz3com.R;
@@ -24,20 +22,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
 import java.util.HashMap;
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
-    List<DataItem>dataItems;
+    List<DataItem> dataItems;
     Context context;
     String counter,tax;
     int i;
     Double price,toloa;
     Double entrycount = 0.0;
     SharedPreference sharedPreference =new SharedPreference();
-    HashMap<String,Object> hashMap =new HashMap<>();
-    public Adapter(List<DataItem>dataItems, Context context){
+    HashMap<String, Object> hashMap =new HashMap<>();
+    public Adapter(List<DataItem> dataItems, Context context){
         this.dataItems=dataItems;
         this.context=context;
     }
@@ -46,7 +43,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.card,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.carditem,parent,false);
         return new ViewHolder(view);
     }
 
@@ -108,7 +105,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                                             holder.count.setError("العدد المدخل اعلى من العدد الحالي في المتجر يرجى ادخال عدد اقل");
                                             holder.checkBox.setChecked(false);
                                             sharedPreference.getFavoritewithname(context,dataItems.get(position).getName());
-                                            System.out.println(dataItems.get(position).getName());
+
                                         }
                                         else {
                                             holder.checkBox.setChecked(false);
@@ -133,20 +130,20 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                                 holder.checkBox.toggle();
                             }
                             else {
-                                i =Integer.parseInt(counter);
+                                i = Integer.parseInt(counter);
                                 ListScreen.order.setVisibility(View.VISIBLE);
                                 hashMap.put("name",dataItems.get(position).getName());
                                 hashMap.put("price",dataItems.get(position).getPrice());
                                 hashMap.put("count",counter);
                                 try {
-                                    price =Double.parseDouble(dataItems.get(position).getPrice());
+                                    price = Double.parseDouble(dataItems.get(position).getPrice());
                                     toloa =price*i;
-                                    System.out.println(toloa);
                                 }catch (NullPointerException e){}
 
                                 hashMap.put("total",toloa);
-                                hashMap.put("tax",tax);
+                                hashMap.put("tax",dataItems.get(position).getTax());
                                 hashMap.put("type",dataItems.get(position).getType());
+                                System.out.println(dataItems.get(position).getTax());
                                 sharedPreference.addFavorite(context,hashMap);
                             }
                         }

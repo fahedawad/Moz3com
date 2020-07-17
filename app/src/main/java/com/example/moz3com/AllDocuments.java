@@ -46,18 +46,13 @@ public class AllDocuments extends AppCompatActivity {
                                 docs.add(new Doc(s1.child("الاسم").getValue(String.class), s1.child("التاريخ").getValue(String.class),
                                         s1.child("المبلغ").getValue(String.class), s1.child("كتابة").getValue(String.class), "-----------", "-------------", s1.child("مقابل").getValue(String.class), s1.child("طرقة الدقع").getValue(String.class)));
                             }
-
                     }
-
                     }
                     adapterDoc =new AdapterDoc(docs,AllDocuments.this);
-
                     recyclerView.setAdapter(adapterDoc);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }

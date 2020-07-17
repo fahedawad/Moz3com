@@ -69,7 +69,7 @@ public class AllBillsForUser extends AppCompatActivity {
             ncdlist = new ArrayList<>();
             list = new ArrayList<>();
 
-        getitem();
+
         FirebaseDatabase.getInstance().getReference("user").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -91,6 +91,7 @@ public class AllBillsForUser extends AppCompatActivity {
 
             }
         });
+        getitem();
         p.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,7 +122,7 @@ public class AllBillsForUser extends AppCompatActivity {
                                     wieght =ds1.child("الوزن").getValue(String.class);
                                 }
                                 else wieght ="--";
-                                ncdlist.add(new itmeList(ds1.getKey(), ds1.child("السعر").getValue(String.class), i,ds.getKey(), name,id, total,  ds1.child("نوع البيع").getValue(String.class), total, total,wieght));
+                                ncdlist.add(new itmeList(ds1.getKey(), ds1.child("السعر").getValue(String.class), i,ds.getKey(), n.getText().toString(),id, total,  ds1.child("نوع البيع").getValue(String.class), total, total,wieght));
                             }
                         }
                         ArrayList<itmeList> ncdlist1 = new ArrayList<>();

@@ -33,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -130,7 +131,6 @@ public class Change extends AppCompatActivity {
         push.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 item =itemtxt.getText().toString();
                 pricbuy =pricebuytxt.getText().toString();
                 pricsale =pricesaletxt.getText().toString();
@@ -142,38 +142,23 @@ public class Change extends AppCompatActivity {
                     itemtxt.setError("أدخل اسم الصنف");
                 }
 
-                else if (pricsale.isEmpty())
+                 if (pricsale.isEmpty())
                 {
                     pricesaletxt.setError("أدخل سعر البيع");
                 }
-                else if (tax.isEmpty()){
+                 if (tax.isEmpty()){
                     taxtxt.setError("أدخل النسبة الضريبيه في حال كان الصنف من دون ضريبه ادخل 0");
                 }
-                else if (pricbuy.isEmpty()){
+                 if (pricbuy.isEmpty()){
                     pricebuytxt.setError("أدخل سعر الشراء");
                 }
-                else  if (count.isEmpty()){
+                  if (count.isEmpty()){
                     counttxt.setError("أدخل العدد المتاح في مخزنك");
                 }
-
-
-                else {
-                    loadImg();
+                System.out.println((item.length()>0 && pricsale.length()>0 && tax.length()>0 && pricbuy.length()>0 && count.length()>0) + "         boolean");
+                if(item.length()>0 && pricsale.length()>0 && tax.length()>0 && pricbuy.length()>0 && count.length()>0) {
                     progressDialog.show();
-                    Thread thread =new Thread(){
-                        @Override
-                        public void run() {
-                            super.run();
-                            try {
-                                sleep(10000);
-                                setData(getdate,item,pricsale,pricbuy,count,countitem,tax,type);
-                            }
-
-                            catch (Exception e){
-
-                            }
-                        }
-                    };thread.start();
+                    loadImg();
                 }
             }
         });
@@ -183,18 +168,44 @@ public class Change extends AppCompatActivity {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             uri = data.getData();
             imgItem.setImageURI(uri);
+            System.out.println(uri + "              uri");
         }
     }
     public void loadImg(){
-        if (uri!=null){
-            mStorageRef =storage.getReference("item");
-            storageReference =mStorageRef.child(item);
+        if (uri!=null) {
+            if (uri.toString().contains("content")){
+                mStorageRef = storage.getReference("item");
+            storageReference = mStorageRef.child(item);
             storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Toast.makeText(Change.this, "تم أختيار الصورة", Toast.LENGTH_SHORT).show();
                 }
+            }).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        uriTask = storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                setData(datetxt.getText().toString(), item, pricsale, pricbuy, count, countitem, tax, type , task.getResult()+"");
+                                progressDialog.dismiss();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(Change.this, e.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+                }
             });
+        }
+            else {
+                setData(getdate, item, pricsale, pricbuy, count, countitem, tax, type , uri+"");
+                progressDialog.dismiss();
+            }
         }else  {
             progressDialog.dismiss();
             Toast.makeText(this, "اختار صورة من فضلك", Toast.LENGTH_SHORT).show();
@@ -205,7 +216,7 @@ public class Change extends AppCompatActivity {
     }
    public void getData(String key){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("item").child(key);
-        reference.addValueEventListener(new ValueEventListener() {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 itemtxt.setText(dataSnapshot.getKey());
@@ -217,8 +228,8 @@ public class Change extends AppCompatActivity {
                 datetxt.setText(dataSnapshot.child("تاريخ الانتهاء").getValue(String.class));
                 coutitemtxt.setText(dataSnapshot.child("عدد الحبات داخل الكرتونه").getValue(String.class));
                 String u = dataSnapshot.child("صورة المنتج").getValue(String.class);
-                Uri uri1 =Uri.parse(u);
-                imgItem.setImageURI(uri1);
+                uri=Uri.parse(u);
+                Picasso.get().load(u).resize(1080,1080).into(imgItem);
                 String type =dataSnapshot.child("طريقة البيع").getValue(String.class);
                 System.out.println(u);
                 if (type.equals("فرط")){
@@ -236,13 +247,9 @@ public class Change extends AppCompatActivity {
             }
         });
     }
-    public void setData(final  String getdate ,final  String item ,final  String  pricesale , final  String pricebuy , final  String count , final  String countitem,final  String tax, final  String type) {
+    public void setData(final String getdate ,final  String item ,final  String  pricesale , final  String pricebuy , final  String count , final  String countitem,final  String tax, final  String type , String url) {
         try {
-            uriTask = storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    geturi = task.getResult();
-                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("item").child(key);
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("item").child(item);
                     hashMap =new HashMap<>();
                     hashMap.put("تاريخ الانتهاء",getdate);
                     hashMap.put("سعر الشراء",pricebuy);
@@ -251,23 +258,11 @@ public class Change extends AppCompatActivity {
                     hashMap.put("عدد الحبات داخل الكرتونه",countitem);
                     hashMap.put("الضريبة",tax);
                     hashMap.put("طريقة البيع",type);
-                    hashMap.put("صورة المنتج",geturi+"");
+                    hashMap.put("صورة المنتج",url+"");
                     reference.updateChildren(hashMap, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                             Toast.makeText(Change.this, "تم ادخال الصنف بنجاح", Toast.LENGTH_SHORT).show();
-                            itemtxt.setText("");
-                            pricebuytxt.setText("");
-                            pricesaletxt.setText("");
-                            counttxt.setText("");
-                            coutitemtxt.setText("");
-                            coutitemtxt.setVisibility(View.GONE);
-                            taxtxt.setText("");
-                            date.setText("أضغط لاختيار التاريخ");
-                            datetxt.setText("");
-                            Hyper.setChecked(false);
-                            cartons.setChecked(false);
-                            kilo.setChecked(false);
                             progressDialog.dismiss();
 
                         }
@@ -283,13 +278,7 @@ public class Change extends AppCompatActivity {
                             System.out.println(e);
                         }
                     });
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Change.this, e.toString(), Toast.LENGTH_SHORT).show();
-                }
-            });}catch (NullPointerException e){}
+               }catch (NullPointerException e){}
     }
 
 }
