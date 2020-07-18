@@ -160,10 +160,14 @@ public class print_invoices extends AppCompatActivity {
                 Intent enableBT = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableBT, 0);
             }
+            else {
+                bluetoothAdapter.enable();
+                Intent enableBT = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBT, 0);
+            }
             Set<BluetoothDevice> pairedDevice = bluetoothAdapter.getBondedDevices();
             if (pairedDevice.size() > 0) {
                 for (BluetoothDevice pairedDev : pairedDevice) {
-
                     // My Bluetoth printer name
                     if (pairedDev.getName().equals("printer001")) {
                         bluetoothDevice = pairedDev;
