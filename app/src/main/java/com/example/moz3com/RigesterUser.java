@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +31,7 @@ public class RigesterUser extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<String > strings;
     String uid;
+    ProgressDialog dialog;
     AutoCompleteTextView autoCompleteTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,9 @@ public class RigesterUser extends AppCompatActivity {
         setContentView(R.layout.activity_rigester_user);
         autoCompleteTextView =findViewById(R.id.autoa);
         recyclerView =findViewById(R.id.recuser);
+        dialog =new ProgressDialog(this);
+        dialog.setMessage("جاري تحميل العملاء");
+        dialog.show();
         recyclerView.setHasFixedSize(true);
         strings =new ArrayList<>();
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
@@ -58,6 +63,7 @@ public class RigesterUser extends AppCompatActivity {
                         }
                         adapterUser =new AdapterRegister(RigesterUser.this,users);
                         recyclerView.setAdapter(adapterUser);
+                        dialog.dismiss();
                     }
 
                     @Override

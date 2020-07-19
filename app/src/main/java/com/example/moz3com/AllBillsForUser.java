@@ -35,6 +35,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,6 +62,8 @@ public class AllBillsForUser extends AppCompatActivity {
         r =findViewById(R.id.r);
         n =findViewById(R.id.n);
         p =findViewById(R.id.p);
+        final DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
         id =getIntent().getStringExtra("id");
@@ -93,8 +97,8 @@ public class AllBillsForUser extends AppCompatActivity {
                     phon =phon.substring(4,14);
                     System.out.println(phon);
                 }catch (Exception e){}
-
-                r.setText("الرصيد السابق:"+"\t"+"\t"+"\t"+dataSnapshot.child("رصيد السابق").getValue(Double.class)+"");
+                    Double dou =dataSnapshot.child("رصيد السابق").getValue(Double.class);
+                r.setText("الرصيد السابق:"+"\t"+"\t"+"\t"+df.format(dou)+"");
                 System.out.println(name);
             }
 

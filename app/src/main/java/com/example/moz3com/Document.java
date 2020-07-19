@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,6 +13,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,13 +36,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+import java.util.UUID;
 
 public class Document extends AppCompatActivity {
     TextView name,date;
@@ -49,10 +57,19 @@ public class Document extends AppCompatActivity {
     Button ok;
     List<User2>user2s;
     Double f;
+    EditText privetMony;
     private static BluetoothSocket btsocket;
     private static OutputStream outputStream;
-    LinearLayout header1 , header2 , header3 , linearLayout,header4,sheak;
+    LinearLayout header1 , header2 , header3 , linearLayout,header4,sheak,raseed;
     ImageView print;
+    BluetoothAdapter bluetoothAdapter;
+    BluetoothSocket bluetoothSocket;
+    BluetoothDevice bluetoothDevice;
+    InputStream inputStream;
+    Thread thread;
+    byte[] readBuffer;
+    int readBufferPosition;
+    volatile boolean stopWorker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,11 +80,15 @@ public class Document extends AppCompatActivity {
         header4 = findViewById(R.id.header4);
         sheak = findViewById(R.id.shak);
         print = findViewById(R.id.print);
+        raseed =findViewById(R.id.raseed);
+        privetMony =findViewById(R.id.privetmony);
         linearLayout = findViewById(R.id.shak);
         name =findViewById(R.id.namecust);
         user2s =new ArrayList<>();
         radioGroup =findViewById(R.id.ra);
         mony=findViewById(R.id.many);
+        final DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
         naony =findViewById(R.id.manytxt);
         date =findViewById(R.id.daterep);
         SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
@@ -121,6 +142,7 @@ public class Document extends AppCompatActivity {
                         name.setText("استلمنا من السيد/السادة:"+"\t"+"\t"+dataSnapshot.child("name").getValue(String.class));
                         f =dataSnapshot.child("رصيد السابق").getValue(Double.class);
                         n = dataSnapshot.child("name").getValue(String.class);
+                        privetMony.setText(df.format(f)+"");
                     }
 
                     @Override
@@ -132,11 +154,167 @@ public class Document extends AppCompatActivity {
         print.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                printDemo();
+                printPhoto();
             }
         });
     }
+    public void printPhoto() {
+        try{
+            FindBluetoothDevice();
+            openBluetoothPrinter();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        try {
+            printDataLogo(header1,550,250);
+            printData(header2,550,150);
+            printData(header4,550,150);
+            printData(sheak,550,100);
+            printData(header3,550,150);
+            printData(raseed,550,100);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            //Toast.makeText(MainActivity.this,"PrintTools"+ "the file isn't exists" , Toast.LENGTH_LONG).show();
+            Log.e("PrintTools", "the file isn't exists");
+        }
+    }
+
+    void FindBluetoothDevice() {
+        try {
+            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            if (bluetoothAdapter == null) {
+            }
+            if (bluetoothAdapter.isEnabled()) {
+                Intent enableBT = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBT, 0);
+            }
+            else {
+                bluetoothAdapter.enable();
+                Intent enableBT = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBT, 0);
+            }
+            Set<BluetoothDevice> pairedDevice = bluetoothAdapter.getBondedDevices();
+            if (pairedDevice.size() > 0) {
+                for (BluetoothDevice pairedDev : pairedDevice) {
+                    // My Bluetoth printer name
+                    if (pairedDev.getName().equals("printer001")) {
+                        bluetoothDevice = pairedDev;
+                        break;
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    // Open Bluetooth Printer
+    void openBluetoothPrinter() throws IOException {
+        try{
+            //Standard uuid from string //
+            UUID uuidSting = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
+            bluetoothSocket=bluetoothDevice.createRfcommSocketToServiceRecord(uuidSting);
+            bluetoothSocket.connect();
+            outputStream=bluetoothSocket.getOutputStream();
+            inputStream=bluetoothSocket.getInputStream();
+
+            beginListenData();
+
+        }catch (Exception ex){
+        }
+    }
+    void beginListenData(){
+        try{
+            final Handler handler =new Handler();
+            final byte delimiter=10;
+            stopWorker =false;
+            readBufferPosition=0;
+            readBuffer = new byte[1024];
+            thread=new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (!Thread.currentThread().isInterrupted() && !stopWorker){
+                        try{
+                            int byteAvailable = inputStream.available();
+                            if(byteAvailable>0){
+                                byte[] packetByte = new byte[byteAvailable];
+                                inputStream.read(packetByte);
+
+                                for(int i=0; i<byteAvailable; i++){
+                                    byte b = packetByte[i];
+                                    if(b==delimiter){
+                                        byte[] encodedByte = new byte[readBufferPosition];
+                                        System.arraycopy(
+                                                readBuffer,0,
+                                                encodedByte,0,
+                                                encodedByte.length
+                                        );
+                                        final String data = new String(encodedByte,"UTF-8");
+                                        readBufferPosition=0;
+                                        handler.post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                            }
+                                        });
+                                    }else{
+                                        readBuffer[readBufferPosition++]=b;
+                                    }
+                                }
+                            }
+                        }catch(Exception ex){
+                            stopWorker=true;
+                        }
+                    }
+                }
+            });
+            thread.start();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    } void printDataLogo(View view,int w,int h) throws  IOException{
+        try{
+            Bitmap bmp = getBitmapFromView(view);
+            Bitmap b2 = Bitmap.createScaledBitmap(bmp , w, h , false);
+            if(b2!=null){
+                byte[] command = Utils.decodeBitmap(b2);
+                outputStream.write(PrinterCommands.ESC_ALIGN_RIGHT);
+                outputStream.write(command);
+            }else{
+                //Toast.makeText(MainActivity.this , "Print Photo error"+"the file isn't exists" , Toast.LENGTH_LONG).show();
+                Log.e("Print Photo error", "the file isn't exists");
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    // Printing Text to Bluetooth Printer //
+    void printData(View view,int w,int h) throws  IOException{
+        try{
+            Bitmap bmp = getBitmapFromView(view);
+            Bitmap b2 = Bitmap.createScaledBitmap(bmp , w, h , false);
+            if(b2!=null){
+                byte[] command = Utils.decodeBitmap(b2);
+                outputStream.write(PrinterCommands.ESC_ALIGN_CENTER);
+                outputStream.write(command);
+            }else{
+                //Toast.makeText(MainActivity.this , "Print Photo error"+"the file isn't exists" , Toast.LENGTH_LONG).show();
+                Log.e("Print Photo error", "the file isn't exists");
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    // Disconnect Printer //
+    void disconnectBT() throws IOException{
+        try {
+            stopWorker=true;
+            outputStream.close();
+            inputStream.close();
+            bluetoothSocket.close();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
     private void PushData() {
         Double s =Double.parseDouble(monytxt);
         Double x =f-s;

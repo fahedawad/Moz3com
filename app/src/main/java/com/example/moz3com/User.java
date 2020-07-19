@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -34,11 +35,15 @@ public class User extends AppCompatActivity {
     String uid;
     Button button;
     ArrayList<String>strings;
+    ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         recyclerView =findViewById(R.id.ff);
+        dialog =new ProgressDialog(this);
+        dialog.setMessage("جاري تحميل العملاء");
+        dialog.show();
         button =findViewById(R.id.pr);
         autoCompleteTextView =findViewById(R.id.autoCompleteTextView2);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -62,10 +67,12 @@ public class User extends AppCompatActivity {
                     button.setVisibility(View.VISIBLE);
                     AdapterUser3 adapterUser3 =new AdapterUser3(User.this,users);
                     recyclerView.setAdapter(adapterUser3);
+                    dialog.dismiss();
                 }
                 else if (key.equals("key2")){
                     adapterUser =new AdapterUser2(User.this,users);
                     recyclerView.setAdapter(adapterUser);
+                    dialog.dismiss();
                 }
             }
 

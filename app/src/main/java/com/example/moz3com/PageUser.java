@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -29,16 +30,21 @@ AdapterUser adapterUser;
 List<User>users;
 RecyclerView recyclerView;
 ArrayList<String >strings;
+ProgressDialog dialog;
 String uid;
 AutoCompleteTextView autoCompleteTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_user);
+
         autoCompleteTextView =findViewById(R.id.autoa);
         recyclerView =findViewById(R.id.recuser);
         recyclerView.setHasFixedSize(true);
         strings =new ArrayList<>();
+        dialog =new ProgressDialog(this);
+        dialog.setMessage("جاري تحميل العملاء");
+        dialog.show();
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -54,6 +60,7 @@ AutoCompleteTextView autoCompleteTextView;
                         }
                         adapterUser =new AdapterUser(PageUser.this,users);
                         recyclerView.setAdapter(adapterUser);
+                        dialog.dismiss();
                     }
 
                     @Override
