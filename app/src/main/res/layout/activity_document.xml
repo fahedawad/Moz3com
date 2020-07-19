@@ -96,22 +96,46 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-                    <EditText
-                        android:id="@+id/many"
-                        android:layout_width="200dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:layout_gravity="center"
-                        android:hint="     المبلغ وقدره    "
-                        android:inputType="numberDecimal" />
-
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="مبلغ وقدره"
+                            android:layout_weight="4"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
                     <EditText
+                        android:layout_weight="1"
+                        android:id="@+id/many"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:inputType="numberDecimal" />
+                    </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text=" المبلغ كتابة "
+        android:layout_weight="4"
+        android:textColor="#000"
+        android:textSize="18sp" />
+                    <EditText
+                        android:layout_weight="1"
                         android:id="@+id/manytxt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint=" المبلغ كتابة "
-                        android:inputType="text" />
 
+                        android:inputType="text" />
+</LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/shak"
@@ -121,6 +145,8 @@
                     android:visibility="visible">
 
                     <TextView
+                        android:textColor="#000"
+                        android:textSize="18sp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -134,6 +160,8 @@
                         android:inputType="numberDecimal" />
 
                     <TextView
+                        android:textColor="#000"
+                        android:textSize="18sp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -174,22 +202,37 @@
                     </RadioGroup>
 
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
 
-                    <EditText
-                        android:id="@+id/bio"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:hint="وذلك مقابل"
-                        android:inputType="text" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="وذلك مقابل"
+        android:layout_weight="4"
+        android:textColor="#000"
+        android:textSize="18sp" />
+    <EditText
+        android:id="@+id/bio"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+       android:layout_weight="1"
+        android:inputType="text" />
+</LinearLayout>
+
 
                 </LinearLayout>
 
                 <Button
 
-        android:id="@+id/ok"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+                    android:id="@+id/ok"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="تخزين السند" />
         </LinearLayout>
 
             <ImageView

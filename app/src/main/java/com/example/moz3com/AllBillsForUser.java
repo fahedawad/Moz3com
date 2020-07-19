@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
@@ -48,6 +49,7 @@ public class AllBillsForUser extends AppCompatActivity {
     static ArrayList<String> datelist , uidlist;
     public ArrayList <List<itmeList>> list;
     String wieght;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,8 @@ public class AllBillsForUser extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
         id =getIntent().getStringExtra("id");
+
+        swipeRefreshLayout =findViewById(R.id.refresh);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         SimpleDateFormat simpleDateFormat =new SimpleDateFormat("dd-MM-yyyy");
         date =simpleDateFormat.format(new Date());
@@ -68,7 +72,15 @@ public class AllBillsForUser extends AppCompatActivity {
             uidlist = new ArrayList<>();
             ncdlist = new ArrayList<>();
             list = new ArrayList<>();
-
+        getitem();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapterSuper.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+                getitem();
+            }
+        });
 
         FirebaseDatabase.getInstance().getReference("user").child(id).addValueEventListener(new ValueEventListener() {
             @Override
@@ -91,7 +103,7 @@ public class AllBillsForUser extends AppCompatActivity {
 
             }
         });
-        getitem();
+
         p.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +115,8 @@ public class AllBillsForUser extends AppCompatActivity {
         });
     }
     public void getitem (){
-
+        list.clear();
+        ncdlist.clear();
         FirebaseDatabase.getInstance().getReference("order").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

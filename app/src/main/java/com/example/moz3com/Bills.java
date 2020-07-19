@@ -58,6 +58,7 @@ public class Bills extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+
                 adapterSuper.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
                 getitem();
