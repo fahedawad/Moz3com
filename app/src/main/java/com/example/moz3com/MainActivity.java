@@ -6,10 +6,15 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -18,6 +23,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.w("fcm", "getInstanceId failed", task.getException());
+                        return;
+                    }
+                    String token = task.getResult().getToken();
+                    sendRegistrationToServer(token);
+                });
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         findViewById(R.id.add).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,4 +88,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    private void sendRegistrationToServer(String token) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("admin");
+        reference.child("token").setValue(token);
+    }
+
 }
