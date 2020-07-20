@@ -18,6 +18,8 @@
         <androidx.cardview.widget.CardView
             android:background="#3B3434"
             android:elevation="15dp"
+            android:layout_margin="10dp"
+           app:cardCornerRadius="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
@@ -99,6 +101,7 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
                         <LinearLayout
+                            android:layout_marginBottom="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
@@ -111,6 +114,10 @@
                                 android:textColor="#000"
                                 android:textSize="18sp" />
                             <EditText
+                                android:textStyle="bold"
+                                android:layout_marginRight="10dp"
+                                android:padding="10dp"
+                                android:background="@drawable/edit2"
                                 android:gravity="center"
                                 android:layout_weight="1"
                                 android:id="@+id/many"
@@ -120,6 +127,7 @@
                                 android:inputType="numberDecimal" />
                         </LinearLayout>
                         <LinearLayout
+                            android:layout_marginBottom="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
@@ -132,6 +140,10 @@
                                 android:textColor="#000"
                                 android:textSize="18sp" />
                             <EditText
+                                android:textStyle="bold"
+                                android:layout_marginRight="10dp"
+                                android:padding="10dp"
+                                android:background="@drawable/edit2"
                                 android:layout_weight="1"
                                 android:id="@+id/manytxt"
                                 android:layout_width="match_parent"
@@ -144,52 +156,8 @@
                         android:id="@+id/shak"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:visibility="visible">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="معلومات الشيك"
-                            android:layout_weight="1"
-                            android:textColor="#000"
-                            android:textSize="18sp" />
-                        <TextView
-                            android:textColor="#000"
-                            android:textSize="18sp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="شيك رقم" />
-
-                        <EditText
-                            android:id="@+id/numshak"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:inputType="numberDecimal" />
-
-                        <TextView
-                            android:textColor="#000"
-                            android:textSize="18sp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="على بنك" />
-
-                        <EditText
-                            android:id="@+id/nameshak"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:inputType="text" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/header3"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
                         <RadioGroup
                             android:id="@+id/ra"
                             android:layout_width="match_parent"
@@ -216,6 +184,64 @@
                                 android:layout_height="wrap_content"
                                 android:text="شيك" />
                         </RadioGroup>
+                        <LinearLayout
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="معلومات الشيك"
+                            android:layout_weight="1"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
+                        <TextView
+                            android:textColor="#000"
+                            android:textSize="18sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="شيك رقم" />
+
+                        <EditText
+                            android:textStyle="bold"
+                            android:padding="5dp"
+                            android:background="@drawable/edit2"
+                            android:id="@+id/numshak"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:inputType="numberDecimal" />
+
+                        <TextView
+                            android:textColor="#000"
+                            android:textSize="18sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="على بنك" />
+
+                        <EditText android:layout_marginRight="10dp"
+                            android:textStyle="bold"
+                            android:padding="5dp"
+                            android:background="@drawable/edit2"
+                            android:id="@+id/nameshak"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:inputType="text" />
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/header3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+
 
 
                         <LinearLayout
@@ -232,6 +258,10 @@
                                 android:textColor="#000"
                                 android:textSize="18sp" />
                             <EditText
+                                android:textStyle="bold"
+                                android:layout_marginRight="10dp"
+                                android:padding="10dp"
+                                android:background="@drawable/edit2"
                                 android:gravity="center"
                                 android:pointerIcon="none"
                                 android:id="@+id/bio"
@@ -245,6 +275,7 @@
 
                     </LinearLayout>
                     <LinearLayout
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:id="@+id/raseed"
                         android:layout_width="match_parent"
@@ -258,6 +289,10 @@
                             android:textColor="#000"
                             android:textSize="18sp" />
                         <EditText
+                            android:textStyle="bold"
+                            android:layout_marginRight="10dp"
+                            android:padding="10dp"
+                            android:background="@drawable/edit2"
                             android:layout_gravity="bottom"
                             android:pointerIcon="none"
                             android:id="@+id/privetmony"
@@ -270,7 +305,10 @@
                     </LinearLayout>
 
                     <Button
-
+                        android:background="#3B3434"
+                        android:textStyle="bold"
+                        android:textColor="#fff"
+                        android:textSize="18sp"
                         android:id="@+id/ok"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -126,6 +126,8 @@ public class Document extends AppCompatActivity {
                 switch (checkedId){
                     case R.id.cashrep:
                         type ="نقد";
+                        nameshak.setText("------------------------");
+                        numshak.setText("------------------------");
                         break;
                     case R.id.shecrep:
                         type ="شيك";
@@ -169,7 +171,7 @@ public class Document extends AppCompatActivity {
             printDataLogo(header1,550,250);
             printData(header2,550,150);
             printData(header4,550,150);
-            printData(sheak,550,100);
+            printData(sheak,550,150);
             printData(header3,550,150);
             printData(raseed,550,100);
 

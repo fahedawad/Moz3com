@@ -76,7 +76,7 @@ public class AllBillsForUser extends AppCompatActivity {
             uidlist = new ArrayList<>();
             ncdlist = new ArrayList<>();
             list = new ArrayList<>();
-        getitem();
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -107,7 +107,7 @@ public class AllBillsForUser extends AppCompatActivity {
 
             }
         });
-
+        getitem();
         p.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
