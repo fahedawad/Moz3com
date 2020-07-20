@@ -47,13 +47,13 @@ import java.util.UUID;
 
 public class print_invoices extends AppCompatActivity {
     RecyclerView recyclerView;
-    LinearLayout printlayout,printlayout2,printtotal,printtotal2,zzz , fulllayout,hhhhhhh;
+    LinearLayout printlayout,printlayout2,printtotal,printtotal2,zzz , fulllayout,hhhhhhh,sumlay,hala;
     private static OutputStream outputStream;
     AdapterSubList adapterSubList;
     ArrayList<itmeList> arrayList;
     ImageView print ;
     LinearLayout logo ;
-    TextView date ,name,type,total,txt10,txt4,txt16,title;
+    TextView date ,name,type,total,txt10,txt4,txt16,title,sum;
     BluetoothAdapter bluetoothAdapter;
     BluetoothSocket bluetoothSocket;
     BluetoothDevice bluetoothDevice;
@@ -72,12 +72,15 @@ public class print_invoices extends AppCompatActivity {
         date =findViewById(R.id.txtdate);
         name =findViewById(R.id.nametxt);
         type =findViewById(R.id.t);
+        sumlay =findViewById(R.id.sumlay);
+        hala =findViewById(R.id.hala);
         fulllayout = findViewById(R.id.fulllayout);
         date.setText(getIntent().getStringExtra("date"));
         type.setText(getIntent().getStringExtra("type"));
         name.setText(getIntent().getStringExtra("username"));
         txt4 = findViewById(R.id.tax);
         hhhhhhh=findViewById(R.id.hhhhhhhh);
+        sum=findViewById(R.id.sumtxt);
         txt10 =findViewById(R.id.tax10);
         txt16=findViewById(R.id.tax16);
         total =findViewById(R.id.total);
@@ -86,7 +89,9 @@ public class print_invoices extends AppCompatActivity {
         total.setText(getIntent().getStringExtra("total"));
         txt16.setText(getIntent().getStringExtra("0.16"));
         txt10.setText(getIntent().getStringExtra("0.10"));
+        sum.setText(getIntent().getStringExtra("sum"));
         txt4.setText(getIntent().getStringExtra("0.04"));
+
         printtotal2 =findViewById(R.id.printtotal2);
         printtotal =findViewById(R.id.printtotal);
         printlayout =findViewById(R.id.printlayout);
@@ -126,7 +131,9 @@ public class print_invoices extends AppCompatActivity {
             printData(printtotal,550,50);
             printData(hhhhhhh,550,50);
             printData(printtotal2,550,50);
+            printData(sumlay,550,50);
             printData(zzz,550,50);
+            printData(hala,550,90);
         } catch (Exception e) {
             e.printStackTrace();
             //Toast.makeText(MainActivity.this,"PrintTools"+ "the file isn't exists" , Toast.LENGTH_LONG).show();

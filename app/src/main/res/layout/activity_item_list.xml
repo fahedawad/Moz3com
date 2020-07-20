@@ -5,13 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="#123"
+    android:background="#3B3434"
     android:layout_height="match_parent"
     tools:context=".ItemList">
 
 
     <AutoCompleteTextView
         android:hint="     بحث   "
+        android:padding="15dp"
         android:background="#fff"
         android:id="@+id/autoCompleteTextView"
         android:layout_width="match_parent"

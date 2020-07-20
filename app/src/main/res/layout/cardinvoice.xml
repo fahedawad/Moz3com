@@ -230,7 +230,11 @@
         android:text="ضريبة المبيعات"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
+    <TextView
+        android:id="@+id/sum"
+        android:text="ضريبة المبيعات"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/total"
         android:layout_width="match_parent"

@@ -142,6 +142,7 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
                                     } else {
                                         holder.tax16.setText("ضريبة المبيعات %16:" + "\t" + "\t" + z);
                                     }
+                                    holder.s.setText("السعر غير شامل الضريبة:" + "\t" + "\t" + df.format(sum));
                                     sum2 = y + x + z + sum;
                                     holder.totaloftotal.setText("السعر شامل الضريبة:" + "\t" + "\t" + df.format(sum2));
                                 }
@@ -244,6 +245,7 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
                 intent.putExtra("0.04",holder.tax.getText());
                 intent.putExtra("0.10",holder.tax10.getText());
                 intent.putExtra("0.16",holder.tax16.getText());
+                intent.putExtra("sum",holder.s.getText());
                 intent.putExtra("total",holder.totaloftotal.getText());
                 context.startActivity(intent);
             }
@@ -290,6 +292,7 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
         LinearLayout linearLayout,linearLayout1;
         CheckBox checkBox,checkBox1;
         RadioButton chash,thmam;
+        TextView s;
         public ViewHolder(@NonNull View i) {
             super(i);
             name =i.findViewById(R.id.nametxt);
@@ -298,6 +301,7 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
             tax =i.findViewById(R.id.tax);
             tax10 =i.findViewById(R.id.tax10);
             tax16 =i.findViewById(R.id.tax16);
+            s =i.findViewById(R.id.sum);
             itemlistrec =i.findViewById(R.id.recorder);
             editText =i.findViewById(R.id.e);
             print =i.findViewById(R.id.printbtn);

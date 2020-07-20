@@ -20,21 +20,36 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:id="@+id/printimg"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+                android:background="#fff"></ImageView>
+            <ImageView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_gravity="center"
                 android:background="@drawable/samer"></ImageView>
+
+            <ImageView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+                android:background="#fff"></ImageView>
         </LinearLayout>
 
 
         <TextView
+            android:background="#F2F2F2"
             android:id="@+id/titlename"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
@@ -179,8 +194,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </androidx.core.widget.NestedScrollView>
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
         <LinearLayout
+            android:layout_weight="1"
             android:id="@+id/printtotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -200,6 +219,7 @@
 
         </LinearLayout>
 <LinearLayout
+    android:layout_weight="1"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -214,14 +234,62 @@
         android:textSize="18dp"
         android:textStyle="bold" />
 </LinearLayout>
+</LinearLayout>
         <LinearLayout
-            android:id="@+id/printtotal2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_weight="1"
+                android:id="@+id/printtotal2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tax16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:text="ضريبة المبيعات"
+                    android:textColor="#000"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:id="@+id/hala"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:gravity="left"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_marginBottom="50dp"
+                    android:textColor="#000"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_weight="1"
+            android:id="@+id/sumlay"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <TextView
-                android:id="@+id/tax16"
+                android:id="@+id/sumtxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
@@ -231,15 +299,18 @@
                 android:textStyle="bold" />
 
 
+
         </LinearLayout>
 
         <LinearLayout
+            android:layout_weight="1"
             android:id="@+id/zzzz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
+                android:gravity="left"
                 android:id="@+id/total"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -250,7 +321,7 @@
                 android:textSize="18dp"
                 android:textStyle="bold" />
         </LinearLayout>
-
+    </LinearLayout>
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"

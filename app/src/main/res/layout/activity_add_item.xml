@@ -17,9 +17,9 @@
         android:layout_width="200dp"
         app:civ_border_color="#fff"
         app:civ_border_overlay="true"
-        android:id="@+id/imgitem"
+        android:id="@+id/add"
         app:civ_border_width="3dp"
-        android:src="@drawable/add"
+        android:src="@drawable/ic_baseline_add_24"
         android:layout_gravity="center"
         android:layout_height="200dp" />
 
