@@ -124,7 +124,7 @@ public class Jard extends AppCompatActivity {
                                 Calendar calendar = Calendar.getInstance();
                                 calendar.set(year, month, day);
                                 SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-                                 dateString = formatter.format(calendar.getTime());
+                                 dateString = convertToEnglish(formatter.format(calendar.getTime())) ;
                                 date.setText(dateString);
                                 fahedDate.setText("جرد مبيعات ليوم "+"\t"+"\t"+"\t"+date.getText());
                             }
@@ -486,5 +486,10 @@ public class Jard extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public static String convertToEnglish(String value)
+    {
+        String newValue =   (((((((((((value+"").replaceAll("١", "1")).replaceAll("٢", "2")).replaceAll("٣", "3")).replaceAll("٤", "4")).replaceAll("٥", "5")).replaceAll("٦", "6")).replaceAll("٧", "7")).replaceAll("٨", "8")).replaceAll("٩", "9")).replaceAll("٠", "0"));
+        return newValue;
     }
 }
