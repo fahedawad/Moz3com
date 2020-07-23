@@ -11,10 +11,15 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DateFormat df = new SimpleDateFormat("dd/MM/yy");
+        FirebaseDatabase.getInstance().getReference("checkdate").child("date")
+                .setValue(FirebaseAuth.getInstance().getUid() + df.format(new Date()) + "");
         FirebaseMessaging.getInstance().setAutoInitEnabled(true);
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(task -> {
