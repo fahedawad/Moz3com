@@ -115,16 +115,13 @@ public class Jard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(Jard.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                                Calendar calendar = Calendar.getInstance();
-                                calendar.set(year, month, day);
-                                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-                                 dateString = convertToEnglish(formatter.format(calendar.getTime())) ;
-                                date.setText(dateString);
-                                fahedDate.setText("جرد مبيعات ليوم "+"\t"+"\t"+"\t"+date.getText());
-                            }
+                        (datePicker, year, month, day) -> {
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.set(year, month, day);
+                            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                             dateString = convertToEnglish(formatter.format(calendar.getTime())) ;
+                            date.setText(dateString);
+                            fahedDate.setText("جرد مبيعات ليوم "+"\t"+"\t"+"\t"+date.getText());
                         },calendar.get(Calendar.YEAR),
                         calendar.get(Calendar.MONTH),
                         calendar.get(Calendar.DAY_OF_MONTH));
@@ -132,21 +129,18 @@ public class Jard extends AppCompatActivity {
             }
 
         });
-            findViewById(R.id.okpushdata).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    TextView view1 =findViewById(R.id.fahedsate);
-                    if (dateString.equals("")){
-                        Toast.makeText(Jard.this, "يجب تحديد التاريخ في البداية", Toast.LENGTH_SHORT).show();
-                    }else {
-                        list.clear();
-                        view1.setText("\t"+"\t"+"\t"+"جرد  المبيعات  لتاريخ :"+dateString);
-                        dialog.setMessage("جاري تحميل الاصناف");
-                        dialog.show();
-                        getData(date.getText().toString());
-                    }
-
+            findViewById(R.id.okpushdata).setOnClickListener(view -> {
+                TextView view1 =findViewById(R.id.fahedsate);
+                if (dateString.equals("")){
+                    Toast.makeText(Jard.this, "يجب تحديد التاريخ في البداية", Toast.LENGTH_SHORT).show();
+                }else {
+                    list.clear();
+                    view1.setText("\t"+"\t"+"\t"+"جرد  المبيعات  لتاريخ :"+dateString);
+                    dialog.setMessage("جاري تحميل الاصناف");
+                    dialog.show();
+                    getData(date.getText().toString());
                 }
+
             });
 
             print.setOnClickListener(new View.OnClickListener() {
