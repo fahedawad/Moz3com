@@ -61,10 +61,7 @@ public class Jard extends AppCompatActivity {
     RecyclerView recyclerView;
     AdapterJard adapterJard;
     List<DataJard>list;
-    String getdate;
-    Double sum,total,sum2,y,z,x,sumcount,buy,sale,aval;
-    DatePickerDialog.OnDateSetListener dateSetListener;
-    String date;
+    Double sum,total,sum2,y,z,x,sumcount;
     Calendar calendar ;
     LinearLayout printlayout,linearLayout , comname , datelinear ;
     private static BluetoothSocket btsocket;
