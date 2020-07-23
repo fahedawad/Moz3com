@@ -109,26 +109,21 @@ public class Jard extends AppCompatActivity {
         calendar = Calendar.getInstance();
         Date currentdate = new Date();
         calendar.setTime(currentdate);
-
         final Button date = findViewById(R.id.getdate);
-         date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(Jard.this,
-                        (datePicker, year, month, day) -> {
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.set(year, month, day);
-                            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-                             dateString = convertToEnglish(formatter.format(calendar.getTime())) ;
-                            date.setText(dateString);
-                            fahedDate.setText("جرد مبيعات ليوم "+"\t"+"\t"+"\t"+date.getText());
-                        },calendar.get(Calendar.YEAR),
-                        calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.show();
-            }
-
-        });
+         date.setOnClickListener(view -> {
+             DatePickerDialog datePickerDialog = new DatePickerDialog(Jard.this,
+                     (datePicker, year, month, day) -> {
+                         Calendar calendar = Calendar.getInstance();
+                         calendar.set(year, month, day);
+                         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                          dateString = convertToEnglish(formatter.format(calendar.getTime())) ;
+                         date.setText(dateString);
+                         fahedDate.setText("جرد مبيعات ليوم "+"\t"+"\t"+"\t"+date.getText());
+                     },calendar.get(Calendar.YEAR),
+                     calendar.get(Calendar.MONTH),
+                     calendar.get(Calendar.DAY_OF_MONTH));
+             datePickerDialog.show();
+         });
             findViewById(R.id.okpushdata).setOnClickListener(view -> {
                 TextView view1 =findViewById(R.id.fahedsate);
                 if (dateString.equals("")){
@@ -140,34 +135,29 @@ public class Jard extends AppCompatActivity {
                     dialog.show();
                     getData(date.getText().toString());
                 }
-
             });
+            print.setOnClickListener(view -> {
+                dialog.setMessage("جاري طباعة الجرد");
+                print.setVisibility(View.GONE);
+                try{
+                    FindBluetoothDevice();
+                    openBluetoothPrinter();
+                }catch (Exception ex){
+                    ex.printStackTrace(); }
+                try {
 
-            print.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.setMessage("جاري طباعة الجرد");
-                    print.setVisibility(View.GONE);
-                    try{
-                        FindBluetoothDevice();
-                        openBluetoothPrinter();
-                    }catch (Exception ex){
-                        ex.printStackTrace(); }
-                    try {
-
-                        printData(printlayout);
-                        printData(comname);
-                        printData(datelinear);
-                        printData(linearLayout);
-                        int size = recyclerView.getAdapter().getItemCount();
-                        for (int i = 0 ; i<size ; i++){
-                            printData(recyclerView.getChildAt(i));
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    printData(printlayout);
+                    printData(comname);
+                    printData(datelinear);
+                    printData(linearLayout);
+                    int size = recyclerView.getAdapter().getItemCount();
+                    for (int i = 0 ; i<size ; i++){
+                        printData(recyclerView.getChildAt(i));
                     }
-
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+
             });
 
     }public static Bitmap getBitmapFromView(View view) {
@@ -212,7 +202,6 @@ public class Jard extends AppCompatActivity {
             ex.printStackTrace();
         }
     }
-    // Open Bluetooth Printer
     void openBluetoothPrinter() throws IOException {
         try{
             //Standard uuid from string //
@@ -221,9 +210,7 @@ public class Jard extends AppCompatActivity {
             bluetoothSocket.connect();
             outputStream=bluetoothSocket.getOutputStream();
             inputStream=bluetoothSocket.getInputStream();
-
             beginListenData();
-
         }catch (Exception ex){
         }
     }
@@ -307,44 +294,11 @@ public class Jard extends AppCompatActivity {
                 recyclerView.setAdapter(adapterJard);
                 dialog.dismiss();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
-
     }
-    protected void printDemo() {
-        if(btsocket == null){
-            Intent BTIntent = new Intent(getApplicationContext(), DeviceList.class);
-            this.startActivityForResult(BTIntent,DeviceList.REQUEST_CONNECT_BT);
-        }
-        else{
-            OutputStream opstream = null;
-            try {
-                opstream = btsocket.getOutputStream();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            outputStream = opstream;
-
-            //print command
-            try {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                outputStream = btsocket.getOutputStream();
-                printPhoto();
-                outputStream.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
  public void printPhoto() {
         try {
             printPhotoFirst();
@@ -361,60 +315,7 @@ public class Jard extends AppCompatActivity {
                         //Toast.makeText(MainActivity.this , "Print Photo error"+"the file isn't exists" , Toast.LENGTH_LONG).show();
                         Log.e("Print Photo error", "the file isn't exists");
                     }
-
                 }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            //Toast.makeText(MainActivity.this,"PrintTools"+ "the file isn't exists" , Toast.LENGTH_LONG).show();
-            Log.e("PrintTools", "the file isn't exists");
-        }
-    }
-
-    public void printPhoto2() {
-        try {
-            printPhotoFirst();
-            printPhotoFirst1();
-            int size = recyclerView.getAdapter().getItemCount();
-            for (int i = 0 ; i<size ; i++){
-                System.out.println(i + "                    i");
-                Bitmap bmp = getBitmapFromView(recyclerView.getChildAt(i));
-                Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 100 , false);
-                if(b2!=null){
-                    byte[] command = Utils.decodeBitmap(b2);
-                    outputStream.write(PrinterCommands.ESC_ALIGN_CENTER);
-                    printText(command);
-                }else{
-                    //Toast.makeText(MainActivity.this , "Print Photo error"+"the file isn't exists" , Toast.LENGTH_LONG).show();
-                    Log.e("Print Photo error", "the file isn't exists");
-                }
-
-            }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            //Toast.makeText(MainActivity.this,"PrintTools"+ "the file isn't exists" , Toast.LENGTH_LONG).show();
-            Log.e("PrintTools", "the file isn't exists");
-        }
-    }
-    private void printPhotoFirst1() {
-        try {
-
-            Bitmap bmp = getBitmapFromView(linearLayout);
-            Bitmap b2 = Bitmap.createScaledBitmap(bmp , 550, 100 , false);
-            if(b2!=null){
-                byte[] command = Utils.decodeBitmap(b2);
-                outputStream.write(PrinterCommands.ESC_ALIGN_CENTER);
-                printText(command);
-            }else{
-                //Toast.makeText(MainActivity.this , "Print Photo error"+"the file isn't exists" , Toast.LENGTH_LONG).show();
-                Log.e("Print Photo error", "the file isn't exists");
-            }
-
-            //printNewLine();
-
         } catch (Exception e) {
             e.printStackTrace();
             //Toast.makeText(MainActivity.this,"PrintTools"+ "the file isn't exists" , Toast.LENGTH_LONG).show();
@@ -434,25 +335,19 @@ public class Jard extends AppCompatActivity {
                     //Toast.makeText(MainActivity.this , "Print Photo error"+"the file isn't exists" , Toast.LENGTH_LONG).show();
                     Log.e("Print Photo error", "the file isn't exists");
                 }
-
-            //printNewLine();
-
         } catch (Exception e) {
             e.printStackTrace();
             //Toast.makeText(MainActivity.this,"PrintTools"+ "the file isn't exists" , Toast.LENGTH_LONG).show();
             Log.e("PrintTools", "the file isn't exists");
         }
     }
-
     private void printNewLine() {
         try {
             outputStream.write(PrinterCommands.FEED_LINE);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
     //print byte[]
     private void printText(byte[] msg) {
         try {
@@ -463,8 +358,6 @@ public class Jard extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -473,7 +366,6 @@ public class Jard extends AppCompatActivity {
             if(btsocket != null){
                 printPhoto();
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
