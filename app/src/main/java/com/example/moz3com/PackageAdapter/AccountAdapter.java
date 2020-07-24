@@ -32,6 +32,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.total.setText(accountDataList.get(i).getTotal());
         viewHolder.date.setText(accountDataList.get(i).getDate());
+        viewHolder.textView.setText(accountDataList.get(i).getType());
     }
 
     @Override
@@ -40,11 +41,12 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView date,total;
+        TextView date,total,textView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             date =itemView.findViewById(R.id.accountdate);
             total =itemView.findViewById(R.id.accounttotal);
+            textView =itemView.findViewById(R.id.accounttype);
         }
     }
 }

@@ -73,7 +73,7 @@ public class AddItem extends AppCompatActivity {
         coutitemtxt =findViewById(R.id.itemcount);
         taxtxt =findViewById(R.id.tax);
         push =findViewById(R.id.pushdata);
-        imgItem =findViewById(R.id.imgitem);
+        imgItem =findViewById(R.id.img);
         date =findViewById(R.id.date);
         imgItem.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -73,6 +73,8 @@
         android:id="@+id/type"
         android:gravity="center"
         android:text="نقدي"
+        android:textSize="18dp"
+        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <LinearLayout
@@ -117,10 +119,11 @@
             android:padding="5dp"
             android:textColor="#000"
             android:textSize="18sp" />
+
         <TextView
             android:background="#AAABAC"
-            android:text="المجموع"
-
+            android:text="الوزن"
+            android:textStyle="bold"
             android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -131,8 +134,8 @@
             android:textSize="18sp" />
         <TextView
             android:background="#AAABAC"
-            android:text="الوزن"
-            android:textStyle="bold"
+            android:text="المجموع"
+
             android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -165,6 +168,7 @@
             android:layout_height="wrap_content"/>
     </RadioGroup>
     <CheckBox
+        android:visibility="gone"
         android:id="@+id/c"
         android:text="ادخال رصيد سابق"
         android:layout_width="wrap_content"

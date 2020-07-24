@@ -1,7 +1,7 @@
 package com.example.moz3com.PackageData;
 
 public class AccountData {
-    String date,total;
+    String date,total,type;
 
     public String getDate() {
         return date;
@@ -19,8 +19,17 @@ public class AccountData {
         this.total = total;
     }
 
-    public AccountData(String date, String total) {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public AccountData(String date, String total, String type) {
         this.date = date;
         this.total = total;
+        this.type =type;
     }
 }

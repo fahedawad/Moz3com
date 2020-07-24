@@ -14,35 +14,34 @@
             android:id="@+id/item"
             android:layout_width="35dp"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
             android:gravity="center"
-            android:padding="5dp"
-            android:textColor="#000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_weight="1"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:textColor="#000"
+        android:layout_margin="5dp" />
 
 
         <TextView
             android:id="@+id/price"
             android:layout_width="35dp"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
             android:gravity="center"
-            android:padding="5dp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textSize="18dp"
             android:textColor="#000"
-            android:textSize="18sp" />
+            android:layout_margin="5dp" />
 
         <TextView
             android:id="@+id/total"
             android:layout_width="35dp"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
             android:gravity="center"
-            android:padding="5dp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textSize="18dp"
             android:textColor="#000"
-            android:textSize="18sp" />
+            android:layout_margin="5dp" />
     </LinearLayout>
 </LinearLayout>

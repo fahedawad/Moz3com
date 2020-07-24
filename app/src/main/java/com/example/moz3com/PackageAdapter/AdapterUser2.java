@@ -31,7 +31,7 @@ public class AdapterUser2 extends RecyclerView.Adapter<AdapterUser2.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
             holder.name.setText(users.get(position).getUser());
             final String id =users.get(position).getId();
             holder.name.setOnClickListener(new View.OnClickListener() {
@@ -39,6 +39,7 @@ public class AdapterUser2 extends RecyclerView.Adapter<AdapterUser2.ViewHolder> 
                 public void onClick(View v) {
                     Intent intent =new Intent(context, AccountStatement.class);
                     intent.putExtra("id",id);
+                    intent.putExtra("name",holder.name.getText().toString());
                     context.startActivity(intent);
                 }
             });

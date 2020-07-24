@@ -32,7 +32,7 @@
             android:screenOrientation="landscape"  />
         <activity android:name=".Jard"
             android:configChanges="orientation"
-            android:screenOrientation="landscape"  />
+            android:screenOrientation="portrait"  />
         <activity android:name=".ForPrint.DeviceList"
             android:configChanges="orientation"
             android:screenOrientation="landscape"  />
@@ -50,7 +50,7 @@
             android:screenOrientation="landscape"  />
         <activity android:name=".AccountStatement"
             android:configChanges="orientation"
-            android:screenOrientation="landscape"  />
+            android:screenOrientation="portrait"   />
         <activity android:name=".AllBillsForUser"
             android:configChanges="orientation"
             android:screenOrientation="landscape" />

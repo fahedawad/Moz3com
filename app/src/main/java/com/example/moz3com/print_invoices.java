@@ -104,15 +104,16 @@ public class print_invoices extends AppCompatActivity {
         arrayList.addAll((Collection<? extends itmeList>) getIntent().getSerializableExtra("list"));
         adapterSubList = new AdapterSubList(print_invoices.this,arrayList);
         recyclerView.setAdapter(adapterSubList);
-        try{
-            FindBluetoothDevice();
-            openBluetoothPrinter();
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
+
         print.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try{
+                    FindBluetoothDevice();
+                    openBluetoothPrinter();
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
                 printPhoto();
             }
         });

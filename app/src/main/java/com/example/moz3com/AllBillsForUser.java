@@ -119,6 +119,8 @@ public class AllBillsForUser extends AppCompatActivity {
         });
     }
     public void getitem (){
+        final DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
         list.clear();
         ncdlist.clear();
         FirebaseDatabase.getInstance().getReference("order").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -139,7 +141,7 @@ public class AllBillsForUser extends AppCompatActivity {
                                     wieght =ds1.child("الوزن").getValue(String.class);
                                 }
                                 else wieght ="--";
-                                ncdlist.add(new itmeList(ds1.getKey(), ds1.child("السعر").getValue(String.class), i,ds.getKey(), n.getText().toString(),id, total,  ds1.child("نوع البيع").getValue(String.class), total, total,wieght));
+                                ncdlist.add(new itmeList(ds1.getKey(), ds1.child("السعر").getValue(String.class), i,ds.getKey(), n.getText().toString(),id, total,  ds1.child("نوع البيع").getValue(String.class), Double.parseDouble(df.format(total)+""),Double.parseDouble(df.format(total)+""),wieght));
                             }
                         }
                         ArrayList<itmeList> ncdlist1 = new ArrayList<>();

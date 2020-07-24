@@ -78,7 +78,7 @@ public class Change extends AppCompatActivity {
         coutitemtxt =findViewById(R.id.itemcount);
         taxtxt =findViewById(R.id.tax);
         push =findViewById(R.id.pushdata);
-        imgItem =findViewById(R.id.imgitem);
+        imgItem =findViewById(R.id.img);
         date =findViewById(R.id.date);
         imgItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,6 +226,7 @@ public class Change extends AppCompatActivity {
                 pricebuytxt.setText(dataSnapshot.child("سعر الشراء").getValue(String.class));
                 counttxt.setText(dataSnapshot.child("العدد المتاح").getValue(String.class));
                 datetxt.setText(dataSnapshot.child("تاريخ الانتهاء").getValue(String.class));
+                getdate =datetxt.getText().toString()+"";
                 coutitemtxt.setText(dataSnapshot.child("عدد الحبات داخل الكرتونه").getValue(String.class));
                 String u = dataSnapshot.child("صورة المنتج").getValue(String.class);
                 uri=Uri.parse(u);

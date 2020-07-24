@@ -111,10 +111,10 @@ public class Document extends AppCompatActivity {
                 if (mony.getText().toString().isEmpty()){
                     mony.setError("أدخل قيمة السند");
                 }
-                else if (bio.getText().toString().isEmpty()){
+                 if (bio.getText().toString().isEmpty()){
                     bio.setError("يجب ادخال معلزمات السند");
                 }
-               else if (fahed.isEmpty()){
+                if (fahed.isEmpty()){
                     naony.setError("أدخل المبلغ كتابة");
                 }
                 else PushData();
@@ -156,6 +156,7 @@ public class Document extends AppCompatActivity {
         print.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 printPhoto();
             }
         });

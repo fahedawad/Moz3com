@@ -142,9 +142,9 @@ public class AdapterSuper extends RecyclerView.Adapter<AdapterSuper.ViewHolder> 
                                     } else {
                                         holder.tax16.setText("ضريبة المبيعات %16:" + "\t" + "\t" + z);
                                     }
-                                    holder.s.setText("السعر غير شامل الضريبة:" + "\t" + "\t" + df.format(sum));
+                                    holder.s.setText("المجموع غير شامل الضريبة:" + "\t" + "\t" + df.format(sum));
                                     sum2 = y + x + z + sum;
-                                    holder.totaloftotal.setText("السعر شامل الضريبة:" + "\t" + "\t" + df.format(sum2));
+                                    holder.totaloftotal.setText("المجموع شامل الضريبة:" + "\t" + "\t" + df.format(sum2));
                                 }
                             }
 
