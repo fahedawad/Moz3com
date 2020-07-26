@@ -89,7 +89,7 @@ ProgressDialog progressDialog;
         date =new Date();
         datetxt =format.format(date);
         LinearLayoutManager l =new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
-        GridLayoutManager gridLayoutManager =new GridLayoutManager(this,4);
+       LinearLayoutManager gridLayoutManager =new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(gridLayoutManager);
         dataItems =new ArrayList<>();
         adapter =new Adapter(search,ListScreen.this);
